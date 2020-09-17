@@ -188,6 +188,78 @@ void vec2_operator_minus_other(number x1, number y1, other_number x2, other_numb
     math::vec2<res_number> vr(xr, yr);
     ASSERT_EQ(v1 - v2, vr);
 }
+
+// multiplies:
+
+template <typename number>
+void vec2_operator_multiplies_equal(number x1, number y1, number value, number xr, number yr)
+{
+    math::vec2<number> v1(x1, y1);
+    math::vec2<number> vr(xr, yr);
+    ASSERT_EQ(v1 *= value, vr);
+}
+
+template <typename number, typename other_number, typename res_number>
+requires (!std::is_same_v<number, other_number>)
+void vec2_operator_multiplies_equal_other(number x1, number y1, other_number value, res_number xr, res_number yr)
+{
+    math::vec2<number> v1(x1, y1);
+    math::vec2<res_number> vr(xr, yr);
+    ASSERT_EQ(v1 *= value, vr);
+}
+
+template <typename number>
+void vec2_operator_multiplies(number x1, number y1, number value, number xr, number yr)
+{
+    math::vec2<number> v1(x1, y1);
+    math::vec2<number> vr(xr, yr);
+    ASSERT_EQ(v1 * value, vr);
+}
+
+template <typename number, typename other_number, typename res_number>
+requires (!std::is_same_v<number, other_number>)
+void vec2_operator_multiplies_other(number x1, number y1, other_number value, res_number xr, res_number yr)
+{
+    math::vec2<number> v1(x1, y1);
+    math::vec2<res_number> vr(xr, yr);
+    ASSERT_EQ(v1 * value, vr);
+}
+
+// divides:
+
+template <typename number>
+void vec2_operator_divides_equal(number x1, number y1, number value, number xr, number yr)
+{
+    math::vec2<number> v1(x1, y1);
+    math::vec2<number> vr(xr, yr);
+    ASSERT_EQ(v1 /= value, vr);
+}
+
+template <typename number, typename other_number, typename res_number>
+requires (!std::is_same_v<number, other_number>)
+void vec2_operator_divides_equal_other(number x1, number y1, other_number value, res_number xr, res_number yr)
+{
+    math::vec2<number> v1(x1, y1);
+    math::vec2<res_number> vr(xr, yr);
+    ASSERT_EQ(v1 /= value, vr);
+}
+
+template <typename number>
+void vec2_operator_divides(number x1, number y1, number value, number xr, number yr)
+{
+    math::vec2<number> v1(x1, y1);
+    math::vec2<number> vr(xr, yr);
+    ASSERT_EQ(v1 / value, vr);
+}
+
+template <typename number, typename other_number, typename res_number>
+requires (!std::is_same_v<number, other_number>)
+void vec2_operator_divides_other(number x1, number y1, other_number value, res_number xr, res_number yr)
+{
+    math::vec2<number> v1(x1, y1);
+    math::vec2<res_number> vr(xr, yr);
+    ASSERT_EQ(v1 / value, vr);
+}
 }
 
 // Unit tests:
@@ -475,6 +547,126 @@ TEST(math_tests, vec2_operator_minus_other)
     ut::vec2_operator_minus_other<float>(26.75,90.75, 12.5,20.25, 14.25,70.5);
     ut::vec2_operator_minus_other<double>(26.75,90.75, 12.5f,20.25f, 14.25,70.5);
     ut::vec2_operator_minus_other<long double>(26.75,90.75, 12.5f,20.25f, 14.25,70.5);
+}
+
+TEST(math_tests, vec2_operator_multiplies_equal)
+{
+    ut::vec2_operator_multiplies_equal<uint8_t>(47,35, 2, 94,70);
+    ut::vec2_operator_multiplies_equal<uint16_t>(47,35, 2, 94,70);
+    ut::vec2_operator_multiplies_equal<uint32_t>(47,35, 2, 94,70);
+    ut::vec2_operator_multiplies_equal<uint64_t>(47,35, 2, 94,70);
+    ut::vec2_operator_multiplies_equal<int8_t>(47,35, 2, 94,70);
+    ut::vec2_operator_multiplies_equal<int16_t>(47,35, 2, 94,70);
+    ut::vec2_operator_multiplies_equal<int32_t>(47,35, 2, 94,70);
+    ut::vec2_operator_multiplies_equal<int64_t>(47,35, 2, 94,70);
+    ut::vec2_operator_multiplies_equal<float>(26.75,90.75, 2.5, 66.875,226.875);
+    ut::vec2_operator_multiplies_equal<double>(26.75,90.75, 2.5, 66.875,226.875);
+    ut::vec2_operator_multiplies_equal<long double>(26.75,90.75, 2.5, 66.875,226.875);
+}
+
+TEST(math_tests, vec2_operator_multiplies_equal_other)
+{
+    ut::vec2_operator_multiplies_equal_other<uint8_t>(30,2, 2.5, 75,5);
+    ut::vec2_operator_multiplies_equal_other<uint16_t>(30,2, 2.5, 75,5);
+    ut::vec2_operator_multiplies_equal_other<uint32_t>(30,2, 2.5, 75,5);
+    ut::vec2_operator_multiplies_equal_other<uint64_t>(30,2, 2.5, 75,5);
+    ut::vec2_operator_multiplies_equal_other<int8_t>(30,2, 2.5, 75,5);
+    ut::vec2_operator_multiplies_equal_other<int16_t>(30,2, 2.5, 75,5);
+    ut::vec2_operator_multiplies_equal_other<int32_t>(30,2, 2.5, 75,5);
+    ut::vec2_operator_multiplies_equal_other<int64_t>(30,2, 2.5, 75,5);
+    ut::vec2_operator_multiplies_equal_other<float>(26.75,90.75, 2.5, 66.875,226.875);
+    ut::vec2_operator_multiplies_equal_other<double>(26.75,90.75, 2.5f, 66.875,226.875);
+    ut::vec2_operator_multiplies_equal_other<long double>(26.75,90.75, 2.5f, 66.875,226.875);
+}
+
+TEST(math_tests, vec2_operator_multiplies)
+{
+    ut::vec2_operator_multiplies<uint8_t>(47,35, 2, 94,70);
+    ut::vec2_operator_multiplies<uint16_t>(47,35, 2, 94,70);
+    ut::vec2_operator_multiplies<uint32_t>(47,35, 2, 94,70);
+    ut::vec2_operator_multiplies<uint64_t>(47,35, 2, 94,70);
+    ut::vec2_operator_multiplies<int8_t>(47,35, 2, 94,70);
+    ut::vec2_operator_multiplies<int16_t>(47,35, 2, 94,70);
+    ut::vec2_operator_multiplies<int32_t>(47,35, 2, 94,70);
+    ut::vec2_operator_multiplies<int64_t>(47,35, 2, 94,70);
+    ut::vec2_operator_multiplies<float>(26.75,90.75, 2.5, 66.875,226.875);
+    ut::vec2_operator_multiplies<double>(26.75,90.75, 2.5, 66.875,226.875);
+    ut::vec2_operator_multiplies<long double>(26.75,90.75, 2.5, 66.875,226.875);
+}
+
+TEST(math_tests, vec2_operator_multiplies_other)
+{
+    ut::vec2_operator_multiplies_other<uint8_t>(7,3, 2.5, 17.5,7.5);
+    ut::vec2_operator_multiplies_other<uint16_t>(7,3, 2.5, 17.5,7.5);
+    ut::vec2_operator_multiplies_other<uint32_t>(7,3, 2.5, 17.5,7.5);
+    ut::vec2_operator_multiplies_other<uint64_t>(7,3, 2.5, 17.5,7.5);
+    ut::vec2_operator_multiplies_other<int8_t>(7,3, 2.5, 17.5,7.5);
+    ut::vec2_operator_multiplies_other<int16_t>(7,3, 2.5, 17.5,7.5);
+    ut::vec2_operator_multiplies_other<int32_t>(7,3, 2.5, 17.5,7.5);
+    ut::vec2_operator_multiplies_other<int64_t>(7,3, 2.5, 17.5,7.5);
+    ut::vec2_operator_multiplies_other<float>(26.75,90.75, 2.5, 66.875,226.875);
+    ut::vec2_operator_multiplies_other<double>(26.75,90.75, 2.5f, 66.875,226.875);
+    ut::vec2_operator_multiplies_other<long double>(26.75,90.75, 2.5f, 66.875,226.875);
+}
+
+TEST(math_tests, vec2_operator_divides_equal)
+{
+    ut::vec2_operator_divides_equal<uint8_t>(94,70, 2, 47,35);
+    ut::vec2_operator_divides_equal<uint16_t>(94,70, 2, 47,35);
+    ut::vec2_operator_divides_equal<uint32_t>(94,70, 2, 47,35);
+    ut::vec2_operator_divides_equal<uint64_t>(94,70, 2, 47,35);
+    ut::vec2_operator_divides_equal<int8_t>(94,70, 2, 47,35);
+    ut::vec2_operator_divides_equal<int16_t>(94,70, 2, 47,35);
+    ut::vec2_operator_divides_equal<int32_t>(94,70, 2, 47,35);
+    ut::vec2_operator_divides_equal<int64_t>(94,70, 2, 47,35);
+    ut::vec2_operator_divides_equal<float>(66.875,226.875, 2.5, 26.75,90.75);
+    ut::vec2_operator_divides_equal<double>(66.875,226.875, 2.5, 26.75,90.75);
+    ut::vec2_operator_divides_equal<long double>(66.875,226.875, 2.5, 26.75,90.75);
+}
+
+TEST(math_tests, vec2_operator_divides_equal_other)
+{
+    ut::vec2_operator_divides_equal_other<uint8_t>(75,5, 2.5, 30,2);
+    ut::vec2_operator_divides_equal_other<uint16_t>(75,5, 2.5, 30,2);
+    ut::vec2_operator_divides_equal_other<uint32_t>(75,5, 2.5, 30,2);
+    ut::vec2_operator_divides_equal_other<uint64_t>(75,5, 2.5, 30,2);
+    ut::vec2_operator_divides_equal_other<int8_t>(75,5, 2.5, 30,2);
+    ut::vec2_operator_divides_equal_other<int16_t>(75,5, 2.5, 30,2);
+    ut::vec2_operator_divides_equal_other<int32_t>(75,5, 2.5, 30,2);
+    ut::vec2_operator_divides_equal_other<int64_t>(75,5, 2.5, 30,2);
+    ut::vec2_operator_divides_equal_other<float>(66.875,226.875, 2.5, 26.75,90.75);
+    ut::vec2_operator_divides_equal_other<double>(66.875,226.875, 2.5f, 26.75,90.75);
+    ut::vec2_operator_divides_equal_other<long double>(66.875,226.875, 2.5f, 26.75,90.75);
+}
+
+TEST(math_tests, vec2_operator_divides)
+{
+    ut::vec2_operator_divides<uint8_t>(94,70, 2, 47,35);
+    ut::vec2_operator_divides<uint16_t>(94,70, 2, 47,35);
+    ut::vec2_operator_divides<uint32_t>(94,70, 2, 47,35);
+    ut::vec2_operator_divides<uint64_t>(94,70, 2, 47,35);
+    ut::vec2_operator_divides<int8_t>(94,70, 2, 47,35);
+    ut::vec2_operator_divides<int16_t>(94,70, 2, 47,35);
+    ut::vec2_operator_divides<int32_t>(94,70, 2, 47,35);
+    ut::vec2_operator_divides<int64_t>(94,70, 2, 47,35);
+    ut::vec2_operator_divides<float>(66.875,226.875, 2.5, 26.75,90.75);
+    ut::vec2_operator_divides<double>(66.875,226.875, 2.5, 26.75,90.75);
+    ut::vec2_operator_divides<long double>(66.875,226.875, 2.5, 26.75,90.75);
+}
+
+TEST(math_tests, vec2_operator_divides_other)
+{
+    ut::vec2_operator_divides_other<uint8_t>(17,5, 2., 8.5,2.5);
+    ut::vec2_operator_divides_other<uint16_t>(17,5, 2., 8.5,2.5);
+    ut::vec2_operator_divides_other<uint32_t>(17,5, 2., 8.5,2.5);
+    ut::vec2_operator_divides_other<uint64_t>(17,5, 2., 8.5,2.5);
+    ut::vec2_operator_divides_other<int8_t>(17,5, 2., 8.5,2.5);
+    ut::vec2_operator_divides_other<int16_t>(17,5, 2., 8.5,2.5);
+    ut::vec2_operator_divides_other<int32_t>(17,5, 2., 8.5,2.5);
+    ut::vec2_operator_divides_other<int64_t>(17,5, 2., 8.5,2.5);
+    ut::vec2_operator_divides_other<float>(66.875,226.875, 2.5, 26.75,90.75);
+    ut::vec2_operator_divides_other<double>(66.875,226.875, 2.5f, 26.75,90.75);
+    ut::vec2_operator_divides_other<long double>(66.875,226.875, 2.5f, 26.75,90.75);
 }
 
 int main(int argc, char** argv)

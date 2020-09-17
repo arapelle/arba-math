@@ -106,6 +106,38 @@ public:
         return *this;
     }
 
+    // multiplies:
+    inline vec2& operator*=(const number_type& value)
+    {
+        x_ *= value;
+        y_ *= value;
+        return *this;
+    }
+
+    template <concepts::comparable_arithmetic other_num>
+    inline vec2& operator*=(const other_num& value)
+    {
+        x_ *= value;
+        y_ *= value;
+        return *this;
+    }
+
+    // divides:
+    inline vec2& operator/=(const number_type& value)
+    {
+        x_ /= value;
+        y_ /= value;
+        return *this;
+    }
+
+    template <concepts::comparable_arithmetic other_num>
+    inline vec2& operator/=(const other_num& value)
+    {
+        x_ /= value;
+        y_ /= value;
+        return *this;
+    }
+
 private:
     number_type x_;
     number_type y_;
@@ -123,6 +155,20 @@ requires concepts::are_operable<left_number, right_number>
 inline constexpr auto operator-(const vec2<left_number>& lhs, const vec2<right_number>& rhs)
 {
     return vec2(lhs.x() - rhs.x(), lhs.y() - rhs.y());
+}
+
+template <concepts::comparable_arithmetic left_number, concepts::comparable_arithmetic right_number>
+requires concepts::are_operable<left_number, right_number>
+inline constexpr auto operator*(const vec2<left_number>& lhs, const right_number& rhs)
+{
+    return vec2(lhs.x() * rhs, lhs.y() * rhs);
+}
+
+template <concepts::comparable_arithmetic left_number, concepts::comparable_arithmetic right_number>
+requires concepts::are_operable<left_number, right_number>
+inline constexpr auto operator/(const vec2<left_number>& lhs, const right_number& rhs)
+{
+    return vec2(lhs.x() / rhs, lhs.y() / rhs);
 }
 
 // print:
