@@ -209,4 +209,17 @@ inline std::ostream& operator<< <int8_t>(std::ostream& stream, const vec2<int8_t
 {
     return stream << static_cast<int16_t>(vec.x()) << " " << static_cast<int16_t>(vec.y());
 }
+
+// vec2<> aliases:
+using vec2u8 = vec2<uint8_t>;
+using vec2u16 = vec2<uint16_t>;
+using vec2u32 = vec2<uint32_t>;
+using vec2u64 = vec2<uint64_t>;
+using vec2i8 = vec2<int8_t>;
+using vec2i16 = vec2<int16_t>;
+using vec2i32 = vec2<int32_t>;
+using vec2i64 = vec2<int64_t>;
+using vec2f = vec2<float>;
+using vec2d = vec2<double>;
+using vec2ld = vec2<long double>;
 }
