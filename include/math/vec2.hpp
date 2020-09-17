@@ -1,6 +1,7 @@
 #pragma once
 
 #include "concepts.hpp"
+#include <ostream>
 #include <string>
 #include <type_traits>
 #include <cstdint>
@@ -25,11 +26,29 @@ public:
 
     template <concepts::comparable_arithmetic other_num>
     requires (!std::is_same_v<other_num, number_type>)
-    inline constexpr vec2(const vec2<other_num>& vec) : vec2(vec.x(), vec.y()) {}
+    inline constexpr explicit vec2(const vec2<other_num>& vec) : vec2(vec.x(), vec.y()) {}
 
     // assignment operator:
     inline vec2& operator=(const vec2& vec) = default;
     inline vec2& operator=(vec2&& vec) = default;
+
+    template <concepts::comparable_arithmetic other_num>
+    requires (!std::is_same_v<other_num, number_type>)
+    inline vec2& operator=(const vec2<other_num>& vec)
+    {
+        x_ = static_cast<number_type>(vec.x());
+        y_ = static_cast<number_type>(vec.y());
+        return *this;
+    }
+
+    template <concepts::comparable_arithmetic other_num>
+    requires (!std::is_same_v<other_num, number_type>)
+    inline vec2& operator=(vec2<other_num>&& vec)
+    {
+        x_ = number_type(std::move(vec.x()));
+        y_ = number_type(std::move(vec.y()));
+        return *this;
+    }
 
     // accessors:
     inline constexpr const number_type& x() const { return x_; }
@@ -45,18 +64,83 @@ public:
     requires (!std::is_same_v<other_num, number_type>)
     inline constexpr bool operator==(const vec2<other_num>& rfs) const
     {
-        return x_ == static_cast<number_type>(rfs.x()) && y_ == static_cast<number_type>(rfs.y());
+        return x_ == rfs.x() && y_ == rfs.y();
     }
 
     template <concepts::comparable_arithmetic other_num>
     requires (!std::is_same_v<other_num, number_type>)
     inline constexpr bool operator!=(const vec2<other_num>& rfs) const
     {
-        return x_ != static_cast<number_type>(rfs.x()) || y_ != static_cast<number_type>(rfs.y());
+        return x_ != rfs.x() || y_ != rfs.y();
+    }
+
+    // plus:
+    inline vec2& operator+=(const vec2& vec)
+    {
+        x_ += vec.x();
+        y_ += vec.y();
+        return *this;
+    }
+
+    template <concepts::comparable_arithmetic other_num>
+    inline vec2& operator+=(const vec2<other_num>& vec)
+    {
+        x_ += static_cast<number_type>(vec.x());
+        y_ += static_cast<number_type>(vec.y());
+        return *this;
+    }
+
+    // minus:
+    inline vec2& operator-=(const vec2& vec)
+    {
+        x_ -= vec.x();
+        y_ -= vec.y();
+        return *this;
+    }
+
+    template <concepts::comparable_arithmetic other_num>
+    inline vec2& operator-=(const vec2<other_num>& vec)
+    {
+        x_ -= vec.x();
+        y_ -= vec.y();
+        return *this;
     }
 
 private:
     number_type x_;
     number_type y_;
 };
+
+template <concepts::comparable_arithmetic left_number, concepts::comparable_arithmetic right_number>
+requires concepts::are_operable<left_number, right_number>
+inline constexpr auto operator+(const vec2<left_number>& lhs, const vec2<right_number>& rhs)
+{
+    return vec2(lhs.x() + rhs.x(), lhs.y() + rhs.y());
+}
+
+template <concepts::comparable_arithmetic left_number, concepts::comparable_arithmetic right_number>
+requires concepts::are_operable<left_number, right_number>
+inline constexpr auto operator-(const vec2<left_number>& lhs, const vec2<right_number>& rhs)
+{
+    return vec2(lhs.x() - rhs.x(), lhs.y() - rhs.y());
+}
+
+// print:
+template <concepts::comparable_arithmetic num>
+inline std::ostream& operator<<(std::ostream& stream, const vec2<num>& vec)
+{
+    return stream << vec.x() << " " << vec.y();
+}
+
+template <>
+inline std::ostream& operator<< <uint8_t>(std::ostream& stream, const vec2<uint8_t>& vec)
+{
+    return stream << static_cast<uint16_t>(vec.x()) << " " << static_cast<uint16_t>(vec.y());
+}
+
+template <>
+inline std::ostream& operator<< <int8_t>(std::ostream& stream, const vec2<int8_t>& vec)
+{
+    return stream << static_cast<int16_t>(vec.x()) << " " << static_cast<int16_t>(vec.y());
+}
 }
