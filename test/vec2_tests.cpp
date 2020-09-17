@@ -72,6 +72,38 @@ void vec2_assignment_other(const math::vec2<other_number>& v)
     ASSERT_EQ(vec.x(), number(v.x()));
     ASSERT_EQ(vec.y(), number(v.y()));
 }
+
+template <typename number, typename other_number>
+requires std::is_same_v<number, other_number>
+void vec2_operator_equal(const math::vec2<other_number>& v)
+{
+    math::vec2<number> vec(v);
+    ASSERT_EQ(vec, v);
+}
+
+template <typename number, typename other_number>
+requires std::is_same_v<number, other_number>
+void vec2_operator_not_equal(const math::vec2<other_number>& v)
+{
+    math::vec2<number> vec;
+    ASSERT_NE(vec, v);
+}
+
+template <typename number, typename other_number>
+requires (!std::is_same_v<number, other_number>)
+void vec2_operator_equal_other(const math::vec2<other_number>& v)
+{
+    math::vec2<number> vec(v);
+    ASSERT_EQ(vec, v);
+}
+
+template <typename number, typename other_number>
+requires (!std::is_same_v<number, other_number>)
+void vec2_operator_not_equal_other(const math::vec2<other_number>& v)
+{
+    math::vec2<number> vec;
+    ASSERT_NE(vec, v);
+}
 }
 
 // Unit tests:
@@ -179,6 +211,66 @@ TEST(math_tests, vec2_assignment_other)
     ut::vec2_assignment_other<float>(math::vec2<int>(12, 36));
     ut::vec2_assignment_other<double>(math::vec2<int>(12, 36));
     ut::vec2_assignment_other<long double>(math::vec2<int>(12, 36));
+}
+
+TEST(math_tests, vec2_operator_equal)
+{
+    ut::vec2_operator_equal<uint8_t>(math::vec2<uint8_t>(32, 42));
+    ut::vec2_operator_equal<uint16_t>(math::vec2<uint16_t>(32, 42));
+    ut::vec2_operator_equal<uint32_t>(math::vec2<uint32_t>(32, 42));
+    ut::vec2_operator_equal<uint64_t>(math::vec2<uint64_t>(32, 42));
+    ut::vec2_operator_equal<int8_t>(math::vec2<int8_t>(32, 42));
+    ut::vec2_operator_equal<int16_t>(math::vec2<int16_t>(32, 42));
+    ut::vec2_operator_equal<int32_t>(math::vec2<int32_t>(32, 42));
+    ut::vec2_operator_equal<int64_t>(math::vec2<int64_t>(32, 42));
+    ut::vec2_operator_equal<float>(math::vec2<float>(12.75, 36.25));
+    ut::vec2_operator_equal<double>(math::vec2<double>(12.75, 36.25));
+    ut::vec2_operator_equal<long double>(math::vec2<long double>(12.75, 36.25));
+}
+
+TEST(math_tests, vec2_operator_not_equal)
+{
+    ut::vec2_operator_not_equal<uint8_t>(math::vec2<uint8_t>(32, 42));
+    ut::vec2_operator_not_equal<uint16_t>(math::vec2<uint16_t>(32, 42));
+    ut::vec2_operator_not_equal<uint32_t>(math::vec2<uint32_t>(32, 42));
+    ut::vec2_operator_not_equal<uint64_t>(math::vec2<uint64_t>(32, 42));
+    ut::vec2_operator_not_equal<int8_t>(math::vec2<int8_t>(32, 42));
+    ut::vec2_operator_not_equal<int16_t>(math::vec2<int16_t>(32, 42));
+    ut::vec2_operator_not_equal<int32_t>(math::vec2<int32_t>(32, 42));
+    ut::vec2_operator_not_equal<int64_t>(math::vec2<int64_t>(32, 42));
+    ut::vec2_operator_not_equal<float>(math::vec2<float>(12.75, 36.25));
+    ut::vec2_operator_not_equal<double>(math::vec2<double>(12.75, 36.25));
+    ut::vec2_operator_not_equal<long double>(math::vec2<long double>(12.75, 36.25));
+}
+
+TEST(math_tests, vec2_operator_equal_other)
+{
+    ut::vec2_operator_equal_other<uint8_t>(math::vec2<float>(32.75, 42.25));
+    ut::vec2_operator_equal_other<uint16_t>(math::vec2<float>(32.75, 42.25));
+    ut::vec2_operator_equal_other<uint32_t>(math::vec2<float>(32.75, 42.25));
+    ut::vec2_operator_equal_other<uint64_t>(math::vec2<float>(32.75, 42.25));
+    ut::vec2_operator_equal_other<int8_t>(math::vec2<float>(32.75, 42.25));
+    ut::vec2_operator_equal_other<int16_t>(math::vec2<float>(32.75, 42.25));
+    ut::vec2_operator_equal_other<int32_t>(math::vec2<float>(32.75, 42.25));
+    ut::vec2_operator_equal_other<int64_t>(math::vec2<float>(32.75, 42.25));
+    ut::vec2_operator_equal_other<float>(math::vec2<int>(12, 36));
+    ut::vec2_operator_equal_other<double>(math::vec2<int>(12, 36));
+    ut::vec2_operator_equal_other<long double>(math::vec2<int>(12, 36));
+}
+
+TEST(math_tests, vec2_operator_not_equal_other)
+{
+    ut::vec2_operator_not_equal_other<uint8_t>(math::vec2<float>(32.75, 42.25));
+    ut::vec2_operator_not_equal_other<uint16_t>(math::vec2<float>(32.75, 42.25));
+    ut::vec2_operator_not_equal_other<uint32_t>(math::vec2<float>(32.75, 42.25));
+    ut::vec2_operator_not_equal_other<uint64_t>(math::vec2<float>(32.75, 42.25));
+    ut::vec2_operator_not_equal_other<int8_t>(math::vec2<float>(32.75, 42.25));
+    ut::vec2_operator_not_equal_other<int16_t>(math::vec2<float>(32.75, 42.25));
+    ut::vec2_operator_not_equal_other<int32_t>(math::vec2<float>(32.75, 42.25));
+    ut::vec2_operator_not_equal_other<int64_t>(math::vec2<float>(32.75, 42.25));
+    ut::vec2_operator_not_equal_other<float>(math::vec2<int>(12, 36));
+    ut::vec2_operator_not_equal_other<double>(math::vec2<int>(12, 36));
+    ut::vec2_operator_not_equal_other<long double>(math::vec2<int>(12, 36));
 }
 
 int main(int argc, char** argv)

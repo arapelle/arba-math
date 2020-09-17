@@ -38,7 +38,22 @@ public:
     inline number_type& y() { return y_; }
 
     // comparison:
-    inline constexpr auto operator<=>(const vec2& rfs) const = default;
+    inline constexpr bool operator==(const vec2& rfs) const = default;
+    inline constexpr bool operator!=(const vec2& rfs) const = default;
+
+    template <concepts::comparable_arithmetic other_num>
+    requires (!std::is_same_v<other_num, number_type>)
+    inline constexpr bool operator==(const vec2<other_num>& rfs) const
+    {
+        return x_ == static_cast<number_type>(rfs.x()) && y_ == static_cast<number_type>(rfs.y());
+    }
+
+    template <concepts::comparable_arithmetic other_num>
+    requires (!std::is_same_v<other_num, number_type>)
+    inline constexpr bool operator!=(const vec2<other_num>& rfs) const
+    {
+        return x_ != static_cast<number_type>(rfs.x()) || y_ != static_cast<number_type>(rfs.y());
+    }
 
 private:
     number_type x_;
