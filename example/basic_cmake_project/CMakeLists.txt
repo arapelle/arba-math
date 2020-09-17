@@ -6,7 +6,7 @@ add_executable(${PROJECT_NAME} main.cpp)
 # Find package math:
 find_package(math 0.1.0 CONFIG REQUIRED)
 # Use math release shared target:
-target_link_libraries(${PROJECT_NAME} PRIVATE math)
+target_link_libraries(${PROJECT_NAME} PRIVATE arba::math)
 # Use math release static target:
-#target_link_libraries(${PROJECT_NAME} PRIVATE math-static)
+#target_link_libraries(${PROJECT_NAME} PRIVATE arba::math-static)
 

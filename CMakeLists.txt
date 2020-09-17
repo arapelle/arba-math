@@ -16,8 +16,8 @@ set_build_type_if_undefined()
 
 project(math
         VERSION 0.1.0
-#        DESCRIPTION ""
-#        HOMEPAGE_URL ""
+        DESCRIPTION "A tiny C++ library providing useful math tools."
+        HOMEPAGE_URL "https://github.com/arapelle/math"
         LANGUAGES CXX)
 
 message(STATUS "BUILD   : ${CMAKE_BUILD_TYPE}")
@@ -35,12 +35,14 @@ add_cpp_honly_library(${PROJECT_NAME}
     CXX_STANDARD 20
     INCLUDE_DIRECTORIES include
     OUTPUT_VERSION_HEADER "version.hpp"
+    NAMESPACE arba::
     )
 
 # Install C++ library
 install_cpp_library_targets(${PROJECT_NAME}
                             TARGETS ${PROJECT_NAME}
                             INCLUDE_DIRECTORIES "include/${PROJECT_NAME}"
+                            NAMESPACE arba::
                             )
 
 # Install package
