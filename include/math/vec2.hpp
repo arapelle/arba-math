@@ -74,6 +74,9 @@ public:
         return x_ != rfs.x() || y_ != rfs.y();
     }
 
+    // negative:
+    inline constexpr vec2 operator-() const { return vec2(-x_, -y_); }
+
     // plus:
     inline vec2& operator+=(const vec2& vec)
     {

@@ -277,6 +277,14 @@ void vec2_operator_modulo(number x1, number y1, number value, number xr, number 
     math::vec2<number> vr(xr, yr);
     ASSERT_EQ(v1 % value, vr);
 }
+
+template <typename number>
+void vec2_operator_negative(number x1, number y1)
+{
+    math::vec2<number> v1(x1, y1);
+    math::vec2<number> vr(-x1, -y1);
+    ASSERT_EQ(-v1, vr);
+}
 }
 
 // Unit tests:
@@ -708,6 +716,17 @@ TEST(math_tests, vec2_operator_modulo)
     ut::vec2_operator_modulo<int16_t>(25,31, 8, 1,7);
     ut::vec2_operator_modulo<int32_t>(25,31, 8, 1,7);
     ut::vec2_operator_modulo<int64_t>(25,31, 8, 1,7);
+}
+
+TEST(math_tests, vec2_operator_negative)
+{
+    ut::vec2_operator_negative<int8_t>(25,31);
+    ut::vec2_operator_negative<int16_t>(25,31);
+    ut::vec2_operator_negative<int32_t>(25,31);
+    ut::vec2_operator_negative<int64_t>(25,31);
+    ut::vec2_operator_negative<float>(66.875,226.25);
+    ut::vec2_operator_negative<double>(66.875,226.25);
+    ut::vec2_operator_negative<long double>(66.875,226.25);
 }
 
 int main(int argc, char** argv)
