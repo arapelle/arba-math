@@ -4,6 +4,7 @@
 int main()
 {
     math::vec2<int> vec(32, 42);
-    std::cout << vec.x() << " " << vec.y() << std::endl;
+    vec *= 2;
+    std::cout << vec << std::endl;
     return EXIT_SUCCESS;
 }
