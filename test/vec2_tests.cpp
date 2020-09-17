@@ -260,6 +260,23 @@ void vec2_operator_divides_other(number x1, number y1, other_number value, res_n
     math::vec2<res_number> vr(xr, yr);
     ASSERT_EQ(v1 / value, vr);
 }
+
+// modulo:
+template <typename number>
+void vec2_operator_modulo_equal(number x1, number y1, number value, number xr, number yr)
+{
+    math::vec2<number> v1(x1, y1);
+    math::vec2<number> vr(xr, yr);
+    ASSERT_EQ(v1 %= value, vr);
+}
+
+template <typename number>
+void vec2_operator_modulo(number x1, number y1, number value, number xr, number yr)
+{
+    math::vec2<number> v1(x1, y1);
+    math::vec2<number> vr(xr, yr);
+    ASSERT_EQ(v1 % value, vr);
+}
 }
 
 // Unit tests:
@@ -667,6 +684,30 @@ TEST(math_tests, vec2_operator_divides_other)
     ut::vec2_operator_divides_other<float>(66.875,226.875, 2.5, 26.75,90.75);
     ut::vec2_operator_divides_other<double>(66.875,226.875, 2.5f, 26.75,90.75);
     ut::vec2_operator_divides_other<long double>(66.875,226.875, 2.5f, 26.75,90.75);
+}
+
+TEST(math_tests, vec2_operator_modulo_equal)
+{
+    ut::vec2_operator_modulo_equal<uint8_t>(25,31, 8, 1,7);
+    ut::vec2_operator_modulo_equal<uint16_t>(25,31, 8, 1,7);
+    ut::vec2_operator_modulo_equal<uint32_t>(25,31, 8, 1,7);
+    ut::vec2_operator_modulo_equal<uint64_t>(25,31, 8, 1,7);
+    ut::vec2_operator_modulo_equal<int8_t>(25,31, 8, 1,7);
+    ut::vec2_operator_modulo_equal<int16_t>(25,31, 8, 1,7);
+    ut::vec2_operator_modulo_equal<int32_t>(25,31, 8, 1,7);
+    ut::vec2_operator_modulo_equal<int64_t>(25,31, 8, 1,7);
+}
+
+TEST(math_tests, vec2_operator_modulo)
+{
+    ut::vec2_operator_modulo<uint8_t>(25,31, 8, 1,7);
+    ut::vec2_operator_modulo<uint16_t>(25,31, 8, 1,7);
+    ut::vec2_operator_modulo<uint32_t>(25,31, 8, 1,7);
+    ut::vec2_operator_modulo<uint64_t>(25,31, 8, 1,7);
+    ut::vec2_operator_modulo<int8_t>(25,31, 8, 1,7);
+    ut::vec2_operator_modulo<int16_t>(25,31, 8, 1,7);
+    ut::vec2_operator_modulo<int32_t>(25,31, 8, 1,7);
+    ut::vec2_operator_modulo<int64_t>(25,31, 8, 1,7);
 }
 
 int main(int argc, char** argv)

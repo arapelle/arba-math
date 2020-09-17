@@ -57,9 +57,10 @@ template <typename left_comparable_arithmetic, typename right_comparable_arithme
 inline constexpr bool is_modable = false;
 
 template <typename left_comparable_arithmetic, typename right_comparable_arithmetic>
-requires requires(const left_comparable_arithmetic& lhs, const right_comparable_arithmetic& rhs)
+requires requires(left_comparable_arithmetic lhs, const right_comparable_arithmetic& rhs)
 {
     { lhs % rhs } -> comparable_arithmetic;
+    { lhs %= rhs } -> std::same_as<left_comparable_arithmetic&>;
 }
 inline constexpr bool is_modable<left_comparable_arithmetic, right_comparable_arithmetic> = true;
 
