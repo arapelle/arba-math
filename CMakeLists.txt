@@ -38,6 +38,11 @@ add_cpp_honly_library(${PROJECT_NAME}
     NAMESPACE arba::
     )
 
+if(NOT TARGET arba::core)
+    find_package(core 0.4.0 REQUIRED CONFIG)
+endif()
+cpp_library_targets_link_libraries(${PROJECT_NAME} HEADER_ONLY PUBLIC arba::core)
+
 # Install C++ library
 install_cpp_library_targets(${PROJECT_NAME}
                             TARGETS ${PROJECT_NAME}
@@ -47,7 +52,7 @@ install_cpp_library_targets(${PROJECT_NAME}
 
 # Install package
 install_package(${PROJECT_NAME}
-                VERBOSE_PACKAGE_CONFIG_FILE
+                INPUT_PACKAGE_CONFIG_FILE ${PROJECT_NAME}-config.cmake.in
                 EXPORT_NAMES ${PROJECT_NAME})
 
 if(${PROJECT_NAME}_BUILD_EXAMPLES)
