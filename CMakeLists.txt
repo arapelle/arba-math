@@ -15,7 +15,7 @@ set_build_type_if_undefined()
 # C++ PROJECT
 
 project(math
-        VERSION 0.2.0
+        VERSION 0.3.0
         DESCRIPTION "A tiny C++ library providing useful math tools."
         HOMEPAGE_URL "https://github.com/arapelle/math"
         LANGUAGES CXX)
