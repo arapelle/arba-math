@@ -285,6 +285,34 @@ void vec2_operator_negative(number x1, number y1)
     math::vec2<number> vr(-x1, -y1);
     ASSERT_EQ(-v1, vr);
 }
+
+template <typename number>
+void vec2_hash(number x1, number y1)
+{
+    math::vec2<number> vec(x1,y1);
+    std::size_t expected_hash = 0;
+    if constexpr (sizeof(math::vec2<number>) <= sizeof(std::size_t))
+    {
+        union hasher
+        {
+            math::vec2<number> vec;
+            std::size_t hash_value;
+        }
+        hasher(vec);
+        expected_hash = hasher.hash_value;
+    }
+    else
+    {
+        union vec_to_bytes
+        {
+            math::vec2<number> vec;
+            std::array<uint8_t, sizeof(math::vec2<number>)> bytes;
+        }
+        hasher(vec);
+        expected_hash = core::murmur_hash_64(hasher.bytes);
+    }
+    ASSERT_EQ(std::hash<math::vec2<number>>{}(vec), expected_hash);
+}
 }
 
 // Unit tests:
@@ -727,6 +755,26 @@ TEST(math_tests, vec2_operator_negative)
     ut::vec2_operator_negative<float>(66.875,226.25);
     ut::vec2_operator_negative<double>(66.875,226.25);
     ut::vec2_operator_negative<long double>(66.875,226.25);
+}
+
+TEST(math_tests, vec2_hash)
+{
+    ut::vec2_hash<uint8_t>(25,31);
+    ut::vec2_hash<uint16_t>(25,31);
+    ut::vec2_hash<uint32_t>(25,31);
+    ut::vec2_hash<uint64_t>(25,31);
+    ut::vec2_hash<int8_t>(25,31);
+    ut::vec2_hash<int16_t>(25,31);
+    ut::vec2_hash<int32_t>(25,31);
+    ut::vec2_hash<int64_t>(25,31);
+    ut::vec2_hash<float>(66.875,226.25);
+    ut::vec2_hash<double>(66.875,226.25);
+    ut::vec2_hash<long double>(66.875,226.25);
+    math::vec2<uint8_t> vu8(25,31);
+    math::vec2<uint16_t> vu16(25,31);
+    ASSERT_NE(std::hash<math::vec2<uint8_t>>{}(vu8), std::hash<math::vec2<uint16_t>>{}(vu16));
+    math::vec2<uint8_t> vu8bis(25,31);
+    ASSERT_EQ(std::hash<math::vec2<uint8_t>>{}(vu8), std::hash<math::vec2<uint8_t>>{}(vu8bis));
 }
 
 int main(int argc, char** argv)
