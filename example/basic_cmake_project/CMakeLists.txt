@@ -4,7 +4,7 @@ project(basic_cmake_project)
 
 add_executable(${PROJECT_NAME} main.cpp)
 # Find package math:
-find_package(math 0.3.1 CONFIG REQUIRED)
+find_package(math 0.4.0 CONFIG REQUIRED)
 # Use math release shared target:
 target_link_libraries(${PROJECT_NAME} PRIVATE arba::math)
 # Use math release static target:
