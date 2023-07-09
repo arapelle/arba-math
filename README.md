@@ -4,26 +4,27 @@ A tiny C++ library providing useful math tools.
 
 - vec2
 
-See [task board](https://app.gitkraken.com/glo/board/X2MtoiQxbQAR8DlZ) for future updates and features.
-
 # Install
 
 ## Requirements
 
 Binaries:
 
-- A C++20 compiler (ex: g++-10)
+- A C++20 compiler (ex: g++-13)
 - CMake 3.26 or later
 
 Libraries:
 
-- [core](https://github.com/arapelle/core) 0.4.0
-- [Google Test](https://github.com/google/googletest) 1.10 or later (only for testing)
+- [core](https://github.com/arapelle/core) 0.4.0 or later
+
+Testing Libraries (optional):
+
+- [Google Test](https://github.com/google/googletest) 1.13 or later (optional)
 
 ## Clone
 
 ```
-git clone https://github.com/arapelle/math --recurse-submodules
+git clone https://github.com/arapelle/arba-math --recurse-submodules
 ```
 
 ## Quick Install
@@ -32,13 +33,13 @@ There is a cmake script at the root of the project which builds the library in *
 
 ```
 cd /path/to/math
-cmake -P cmake_quick_install.cmake
+cmake -P cmake/scripts/quick_install.cmake
 ```
 
 Use the following to quickly install a different mode.
 
 ```
-cmake -DCMAKE_BUILD_TYPE=Debug -P cmake_quick_install.cmake
+cmake -P cmake/scripts/quick_install.cmake -- TESTS BUILD Debug DIR /tmp/local
 ```
 
 ## Uninstall
@@ -46,8 +47,8 @@ cmake -DCMAKE_BUILD_TYPE=Debug -P cmake_quick_install.cmake
 There is a uninstall cmake script created during installation. You can use it to uninstall properly this library.
 
 ```
-cd /path/to/installed-math/
-cmake -P cmake_uninstall.cmake
+cd /path/to/installed-arba-math/
+cmake -P uninstall.cmake
 ```
 
 # How to use
@@ -56,7 +57,7 @@ cmake -P cmake_uninstall.cmake
 
 ```c++
 #include <iostream>
-#include <math/vec2.hpp>
+#include <arba/math/vec2.hpp>
 
 int main()
 {
@@ -69,7 +70,7 @@ int main()
 
 ## Example - Using *math* in a CMake project
 
-See the [basic cmake project](https://github.com/arapelle/math/tree/master/example/basic_cmake_project) example, and more specifically the [CMakeLists.txt](https://github.com/arapelle/math/tree/master/example/basic_cmake_project/CMakeLists.txt) to see how to use *math* in your CMake projects.
+See *basic_cmake_project* example, and more specifically the *CMakeLists.txt* to see how to use *math* in your CMake projects.
 
 # License
 
