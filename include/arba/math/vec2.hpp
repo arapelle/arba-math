@@ -1,7 +1,7 @@
 #pragma once
 
 #include "concepts.hpp"
-#include <core/hash.hpp>
+#include <arba/core/hash.hpp>
 #include <ostream>
 #include <string>
 #include <array>

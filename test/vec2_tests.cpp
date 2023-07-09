@@ -1,4 +1,4 @@
-#include <math/vec2.hpp>
+#include <arba/math/vec2.hpp>
 #include <gtest/gtest.h>
 #include <cstdlib>
 
