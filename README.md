@@ -13,7 +13,7 @@ See [task board](https://app.gitkraken.com/glo/board/X2MtoiQxbQAR8DlZ) for futur
 Binaries:
 
 - A C++20 compiler (ex: g++-10)
-- CMake 3.16 or later
+- CMake 3.26 or later
 
 Libraries:
 
