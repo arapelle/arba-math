@@ -8,8 +8,11 @@
 #include <type_traits>
 #include <cstdint>
 
+inline namespace arba
+{
 namespace math
 {
+
 template <concepts::comparable_arithmetic num>
 class vec2
 {
@@ -224,21 +227,24 @@ using vec2i64 = vec2<int64_t>;
 using vec2f = vec2<float>;
 using vec2d = vec2<double>;
 using vec2ld = vec2<long double>;
+
+}
 }
 
 namespace std
 {
-template <math::concepts::comparable_arithmetic num>
+
+template < ::arba::math::concepts::comparable_arithmetic num>
 requires std::is_fundamental_v<num>
-struct hash<math::vec2<num>>
+    struct hash< ::arba::math::vec2<num>>
 {
-    std::size_t operator()(const math::vec2<num>& vec) const
+    std::size_t operator()(const ::arba::math::vec2<num>& vec) const
     {
-        if constexpr (sizeof(math::vec2<num>) <= sizeof(std::size_t))
+        if constexpr (sizeof(::arba::math::vec2<num>) <= sizeof(std::size_t))
         {
             union vec_to_hash
             {
-                math::vec2<num> vec;
+                ::arba::math::vec2<num> vec;
                 std::size_t hash_value;
             }
             hasher(vec);
@@ -248,12 +254,13 @@ struct hash<math::vec2<num>>
         {
             union vec_to_bytes
             {
-                math::vec2<num> vec;
-                std::array<uint8_t, sizeof(math::vec2<num>)> bytes;
+                ::arba::math::vec2<num> vec;
+                std::array<uint8_t, sizeof(::arba::math::vec2<num>)> bytes;
             }
             vtobytes(vec);
             return core::murmur_hash_64(vtobytes.bytes);
         }
     }
 };
+
 }

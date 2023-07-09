@@ -3,8 +3,11 @@
 #include <concepts>
 #include <type_traits>
 
+inline namespace arba
+{
 namespace math::concepts
 {
+
 // concept comparable_arithmetic:
 template <typename num>
 concept comparable_arithmetic =
@@ -64,4 +67,5 @@ requires requires(left_comparable_arithmetic lhs, const right_comparable_arithme
 }
 inline constexpr bool is_modable<left_comparable_arithmetic, right_comparable_arithmetic> = true;
 
+}
 }
