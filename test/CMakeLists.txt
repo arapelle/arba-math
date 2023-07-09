@@ -1,9 +1,8 @@
-
 find_or_fetch_GTest()
 
 add_cpp_library_basic_tests(GTest::gtest_main
-    SHARED ${PROJECT_NAME}
-    STATIC ${PROJECT_NAME}-static
+    HEADER_ONLY ${PROJECT_NAME}
     SOURCES
+        project_version_tests.cpp
         vec2_tests.cpp
 )
