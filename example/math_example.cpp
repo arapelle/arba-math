@@ -1,5 +1,6 @@
 #include <iostream>
 #include <arba/math/vec2.hpp>
+#include <arba/math/version.hpp>
 
 int main()
 {
