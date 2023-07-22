@@ -74,4 +74,4 @@ See *basic_cmake_project* example, and more specifically the *CMakeLists.txt* to
 
 # License
 
-[MIT License](https://github.com/arapelle/math/blob/master/LICENSE.md) © math
+[MIT License](./LICENSE.md) © math
