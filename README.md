@@ -15,7 +15,7 @@ Binaries:
 
 Libraries:
 
-- [core](https://github.com/arapelle/core) 0.4.0 or later
+- [arba-core](https://github.com/arapelle/arba-core) 0.4.0 or later
 
 Testing Libraries (optional):
 
@@ -68,10 +68,10 @@ int main()
 }
 ```
 
-## Example - Using *math* in a CMake project
+## Example - Using *arba-math* in a CMake project
 
-See *basic_cmake_project* example, and more specifically the *CMakeLists.txt* to see how to use *math* in your CMake projects.
+See *basic_cmake_project* example, and more specifically the *CMakeLists.txt* to see how to use *arba-math* in your CMake projects.
 
 # License
 
-[MIT License](./LICENSE.md) © math
+[MIT License](./LICENSE.md) © arba-math

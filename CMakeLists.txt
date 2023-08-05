@@ -20,7 +20,7 @@ set(PROJECT_VERSION 0.4.0)
 project(${PROJECT_NAME}
     VERSION ${PROJECT_VERSION}
     DESCRIPTION "A tiny C++ library providing useful math tools."
-    HOMEPAGE_URL "https://github.com/arapelle/math"
+    HOMEPAGE_URL "https://github.com/arapelle/arba-math"
     LANGUAGES CXX)
 message(STATUS "PROJECT : ${PROJECT_NAME} ${PROJECT_VERSION} ${CMAKE_BUILD_TYPE}")
 include(CTest)
