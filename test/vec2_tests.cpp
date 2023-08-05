@@ -1,4 +1,4 @@
-#include <math/vec2.hpp>
+#include <arba/math/vec2.hpp>
 #include <gtest/gtest.h>
 #include <cstdlib>
 
@@ -7,7 +7,7 @@ namespace ut
 template <typename number>
 void vec2_constructor_empty()
 {
-    math::vec2<number> vec;
+    arba::math::vec2<number> vec;
     ASSERT_EQ(vec.x(), 0);
     ASSERT_EQ(vec.y(), 0);
     ASSERT_EQ(&vec.x(), &vec.x());
