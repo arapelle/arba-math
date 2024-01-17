@@ -15,7 +15,7 @@ Binaries:
 
 Libraries:
 
-- [arba-core](https://github.com/arapelle/arba-core) 0.4.0 or later
+- [arba-core](https://github.com/arapelle/arba-core) 0.26.0 or later
 
 Testing Libraries (optional):
 
