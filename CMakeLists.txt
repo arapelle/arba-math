@@ -16,7 +16,7 @@ set_build_type_ifndef()
 set(PROJECT_NAME "arba-math")
 set(project_namespace "arba")
 set(project_base_name "math")
-set(PROJECT_VERSION 0.4.0)
+set(PROJECT_VERSION 0.5.0)
 project(${PROJECT_NAME}
     VERSION ${PROJECT_VERSION}
     DESCRIPTION "A tiny C++ library providing useful math tools."
