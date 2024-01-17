@@ -325,7 +325,7 @@ void vec2_format(number x1, number y1)
 
 // Unit tests:
 
-TEST(math_tests, vec2_constructor_empty)
+TEST(vec2_tests, vec2_constructor_empty)
 {
     ut::vec2_constructor_empty<uint8_t>();
     ut::vec2_constructor_empty<uint16_t>();
@@ -340,7 +340,7 @@ TEST(math_tests, vec2_constructor_empty)
     ut::vec2_constructor_empty<long double>();
 }
 
-TEST(math_tests, vec2_constructor_copy)
+TEST(vec2_tests, vec2_constructor_copy)
 {
     ut::vec2_constructor_copy<uint8_t>(math::vec2<uint8_t>(32, 42));
     ut::vec2_constructor_copy<uint16_t>(math::vec2<uint16_t>(32, 42));
@@ -355,7 +355,7 @@ TEST(math_tests, vec2_constructor_copy)
     ut::vec2_constructor_copy<long double>(math::vec2<long double>(12.75, 36.25));
 }
 
-TEST(math_tests, vec2_constructor)
+TEST(vec2_tests, vec2_constructor)
 {
     ut::vec2_constructor<uint8_t>(32, 42);
     ut::vec2_constructor<uint16_t>(32, 42);
@@ -370,7 +370,7 @@ TEST(math_tests, vec2_constructor)
     ut::vec2_constructor<long double>(12.75, 36.25);
 }
 
-TEST(math_tests, vec2_constructor_other)
+TEST(vec2_tests, vec2_constructor_other)
 {
     ut::vec2_constructor_other<uint8_t>(12.25, 36.75);
     ut::vec2_constructor_other<uint16_t>(12.25, 36.75);
@@ -385,7 +385,7 @@ TEST(math_tests, vec2_constructor_other)
     ut::vec2_constructor_other<long double>(12, 36);
 }
 
-TEST(math_tests, vec2_constructor_copy_other)
+TEST(vec2_tests, vec2_constructor_copy_other)
 {
     ut::vec2_constructor_copy_other<uint8_t>(math::vec2<float>(32.75, 42.25));
     ut::vec2_constructor_copy_other<uint16_t>(math::vec2<float>(32.75, 42.25));
@@ -400,7 +400,7 @@ TEST(math_tests, vec2_constructor_copy_other)
     ut::vec2_constructor_copy_other<long double>(math::vec2<int>(12, 36));
 }
 
-TEST(math_tests, vec2_assignment)
+TEST(vec2_tests, vec2_assignment)
 {
     ut::vec2_assignment<uint8_t>(math::vec2<uint8_t>(32, 42));
     ut::vec2_assignment<uint16_t>(math::vec2<uint16_t>(32, 42));
@@ -415,7 +415,7 @@ TEST(math_tests, vec2_assignment)
     ut::vec2_assignment<long double>(math::vec2<long double>(12.75, 36.25));
 }
 
-TEST(math_tests, vec2_assignment_other)
+TEST(vec2_tests, vec2_assignment_other)
 {
     ut::vec2_assignment_other<uint8_t>(math::vec2<float>(32.75, 42.25));
     ut::vec2_assignment_other<uint16_t>(math::vec2<float>(32.75, 42.25));
@@ -430,7 +430,7 @@ TEST(math_tests, vec2_assignment_other)
     ut::vec2_assignment_other<long double>(math::vec2<int>(12, 36));
 }
 
-TEST(math_tests, vec2_operator_equal)
+TEST(vec2_tests, vec2_operator_equal)
 {
     ut::vec2_operator_equal<uint8_t>(math::vec2<uint8_t>(32, 42));
     ut::vec2_operator_equal<uint16_t>(math::vec2<uint16_t>(32, 42));
@@ -445,7 +445,7 @@ TEST(math_tests, vec2_operator_equal)
     ut::vec2_operator_equal<long double>(math::vec2<long double>(12.75, 36.25));
 }
 
-TEST(math_tests, vec2_operator_not_equal)
+TEST(vec2_tests, vec2_operator_not_equal)
 {
     ut::vec2_operator_not_equal<uint8_t>(math::vec2<uint8_t>(32, 42));
     ut::vec2_operator_not_equal<uint16_t>(math::vec2<uint16_t>(32, 42));
@@ -460,7 +460,7 @@ TEST(math_tests, vec2_operator_not_equal)
     ut::vec2_operator_not_equal<long double>(math::vec2<long double>(12.75, 36.25));
 }
 
-TEST(math_tests, vec2_operator_equal_other)
+TEST(vec2_tests, vec2_operator_equal_other)
 {
     ut::vec2_operator_equal_other<uint8_t>(math::vec2<float>(32.75, 42.25));
     ut::vec2_operator_equal_other<uint16_t>(math::vec2<float>(32.75, 42.25));
@@ -475,7 +475,7 @@ TEST(math_tests, vec2_operator_equal_other)
     ut::vec2_operator_equal_other<long double>(math::vec2<int>(12, 36));
 }
 
-TEST(math_tests, vec2_operator_not_equal_other)
+TEST(vec2_tests, vec2_operator_not_equal_other)
 {
     ut::vec2_operator_not_equal_other<uint8_t>(math::vec2<float>(32.75, 42.25));
     ut::vec2_operator_not_equal_other<uint16_t>(math::vec2<float>(32.75, 42.25));
@@ -490,7 +490,7 @@ TEST(math_tests, vec2_operator_not_equal_other)
     ut::vec2_operator_not_equal_other<long double>(math::vec2<int>(12, 36));
 }
 
-TEST(math_tests, vec2_operator_plus_equal)
+TEST(vec2_tests, vec2_operator_plus_equal)
 {
     ut::vec2_operator_plus_equal<uint8_t>(32, 42, 15, 83, 47, 125);
     ut::vec2_operator_plus_equal<uint16_t>(32, 42, 15, 83, 47, 125);
@@ -505,7 +505,7 @@ TEST(math_tests, vec2_operator_plus_equal)
     ut::vec2_operator_plus_equal<long double>(12.5, 20.25, 14.25, 70.5, 26.75, 90.75);
 }
 
-TEST(math_tests, vec2_operator_plus_equal_other)
+TEST(vec2_tests, vec2_operator_plus_equal_other)
 {
     ut::vec2_operator_plus_equal_other<uint8_t>(32, 42, 15.25, 83.25, 47, 125);
     ut::vec2_operator_plus_equal_other<uint16_t>(32, 42, 15.25, 83.25, 47, 125);
@@ -520,7 +520,7 @@ TEST(math_tests, vec2_operator_plus_equal_other)
     ut::vec2_operator_plus_equal_other<long double>(12.5, 20.25, 14.25f, 70.5f, 26.75, 90.75);
 }
 
-TEST(math_tests, vec2_operator_plus)
+TEST(vec2_tests, vec2_operator_plus)
 {
     ut::vec2_operator_plus<uint8_t>(32, 42, 15, 83, 47, 125);
     ut::vec2_operator_plus<uint16_t>(32, 42, 15, 83, 47, 125);
@@ -535,7 +535,7 @@ TEST(math_tests, vec2_operator_plus)
     ut::vec2_operator_plus<long double>(12.5, 20.25, 14.25, 70.5, 26.75, 90.75);
 }
 
-TEST(math_tests, vec2_operator_plus_other)
+TEST(vec2_tests, vec2_operator_plus_other)
 {
     ut::vec2_operator_plus_other<uint8_t>(32, 42, 15.25, 83.25, 47.25, 125.25);
     ut::vec2_operator_plus_other<uint16_t>(32, 42, 15.25, 83.25, 47.25, 125.25);
@@ -550,7 +550,7 @@ TEST(math_tests, vec2_operator_plus_other)
     ut::vec2_operator_plus_other<long double>(12.5, 20.25, 14.25f, 70.5f, 26.75, 90.75);
 }
 
-TEST(math_tests, vec2_operator_minus_equal)
+TEST(vec2_tests, vec2_operator_minus_equal)
 {
     ut::vec2_operator_minus_equal<uint8_t>(47, 125, 32, 42, 15, 83);
     ut::vec2_operator_minus_equal<uint16_t>(47, 125, 32, 42, 15, 83);
@@ -565,7 +565,7 @@ TEST(math_tests, vec2_operator_minus_equal)
     ut::vec2_operator_minus_equal<long double>(26.75, 90.75, 12.5, 20.25, 14.25, 70.5);
 }
 
-TEST(math_tests, vec2_operator_minus_equal_other)
+TEST(vec2_tests, vec2_operator_minus_equal_other)
 {
     ut::vec2_operator_minus_equal_other<uint8_t>(47, 125, 32.25, 42.75, 14, 82);
     ut::vec2_operator_minus_equal_other<uint16_t>(47, 125, 32.25, 42.75, 14, 82);
@@ -580,7 +580,7 @@ TEST(math_tests, vec2_operator_minus_equal_other)
     ut::vec2_operator_minus_equal_other<long double>(26.75, 90.75, 12.5f, 20.25f, 14.25, 70.5);
 }
 
-TEST(math_tests, vec2_operator_minus)
+TEST(vec2_tests, vec2_operator_minus)
 {
     ut::vec2_operator_minus<uint8_t>(47, 125, 32, 42, 15, 83);
     ut::vec2_operator_minus<uint16_t>(47, 125, 32, 42, 15, 83);
@@ -595,7 +595,7 @@ TEST(math_tests, vec2_operator_minus)
     ut::vec2_operator_minus<long double>(26.75, 90.75, 12.5, 20.25, 14.25, 70.5);
 }
 
-TEST(math_tests, vec2_operator_minus_other)
+TEST(vec2_tests, vec2_operator_minus_other)
 {
     ut::vec2_operator_minus_other<uint8_t>(47, 125, 32.25, 42.75, 14.75, 82.25);
     ut::vec2_operator_minus_other<uint16_t>(47, 125, 32.25, 42.75, 14.75, 82.25);
@@ -610,7 +610,7 @@ TEST(math_tests, vec2_operator_minus_other)
     ut::vec2_operator_minus_other<long double>(26.75, 90.75, 12.5f, 20.25f, 14.25, 70.5);
 }
 
-TEST(math_tests, vec2_operator_multiplies_equal)
+TEST(vec2_tests, vec2_operator_multiplies_equal)
 {
     ut::vec2_operator_multiplies_equal<uint8_t>(47, 35, 2, 94, 70);
     ut::vec2_operator_multiplies_equal<uint16_t>(47, 35, 2, 94, 70);
@@ -625,7 +625,7 @@ TEST(math_tests, vec2_operator_multiplies_equal)
     ut::vec2_operator_multiplies_equal<long double>(26.75, 90.75, 2.5, 66.875, 226.875);
 }
 
-TEST(math_tests, vec2_operator_multiplies_equal_other)
+TEST(vec2_tests, vec2_operator_multiplies_equal_other)
 {
     ut::vec2_operator_multiplies_equal_other<uint8_t>(30, 2, 2.5, 75, 5);
     ut::vec2_operator_multiplies_equal_other<uint16_t>(30, 2, 2.5, 75, 5);
@@ -640,7 +640,7 @@ TEST(math_tests, vec2_operator_multiplies_equal_other)
     ut::vec2_operator_multiplies_equal_other<long double>(26.75, 90.75, 2.5f, 66.875, 226.875);
 }
 
-TEST(math_tests, vec2_operator_multiplies)
+TEST(vec2_tests, vec2_operator_multiplies)
 {
     ut::vec2_operator_multiplies<uint8_t>(47, 35, 2, 94, 70);
     ut::vec2_operator_multiplies<uint16_t>(47, 35, 2, 94, 70);
@@ -655,7 +655,7 @@ TEST(math_tests, vec2_operator_multiplies)
     ut::vec2_operator_multiplies<long double>(26.75, 90.75, 2.5, 66.875, 226.875);
 }
 
-TEST(math_tests, vec2_operator_multiplies_other)
+TEST(vec2_tests, vec2_operator_multiplies_other)
 {
     ut::vec2_operator_multiplies_other<uint8_t>(7, 3, 2.5, 17.5, 7.5);
     ut::vec2_operator_multiplies_other<uint16_t>(7, 3, 2.5, 17.5, 7.5);
@@ -670,7 +670,7 @@ TEST(math_tests, vec2_operator_multiplies_other)
     ut::vec2_operator_multiplies_other<long double>(26.75, 90.75, 2.5f, 66.875, 226.875);
 }
 
-TEST(math_tests, vec2_operator_divides_equal)
+TEST(vec2_tests, vec2_operator_divides_equal)
 {
     ut::vec2_operator_divides_equal<uint8_t>(94, 70, 2, 47, 35);
     ut::vec2_operator_divides_equal<uint16_t>(94, 70, 2, 47, 35);
@@ -685,7 +685,7 @@ TEST(math_tests, vec2_operator_divides_equal)
     ut::vec2_operator_divides_equal<long double>(66.875, 226.875, 2.5, 26.75, 90.75);
 }
 
-TEST(math_tests, vec2_operator_divides_equal_other)
+TEST(vec2_tests, vec2_operator_divides_equal_other)
 {
     ut::vec2_operator_divides_equal_other<uint8_t>(75, 5, 2.5, 30, 2);
     ut::vec2_operator_divides_equal_other<uint16_t>(75, 5, 2.5, 30, 2);
@@ -700,7 +700,7 @@ TEST(math_tests, vec2_operator_divides_equal_other)
     ut::vec2_operator_divides_equal_other<long double>(66.875, 226.875, 2.5f, 26.75, 90.75);
 }
 
-TEST(math_tests, vec2_operator_divides)
+TEST(vec2_tests, vec2_operator_divides)
 {
     ut::vec2_operator_divides<uint8_t>(94, 70, 2, 47, 35);
     ut::vec2_operator_divides<uint16_t>(94, 70, 2, 47, 35);
@@ -715,7 +715,7 @@ TEST(math_tests, vec2_operator_divides)
     ut::vec2_operator_divides<long double>(66.875, 226.875, 2.5, 26.75, 90.75);
 }
 
-TEST(math_tests, vec2_operator_divides_other)
+TEST(vec2_tests, vec2_operator_divides_other)
 {
     ut::vec2_operator_divides_other<uint8_t>(17, 5, 2., 8.5, 2.5);
     ut::vec2_operator_divides_other<uint16_t>(17, 5, 2., 8.5, 2.5);
@@ -730,7 +730,7 @@ TEST(math_tests, vec2_operator_divides_other)
     ut::vec2_operator_divides_other<long double>(66.875, 226.875, 2.5f, 26.75, 90.75);
 }
 
-TEST(math_tests, vec2_operator_modulo_equal)
+TEST(vec2_tests, vec2_operator_modulo_equal)
 {
     ut::vec2_operator_modulo_equal<uint8_t>(25, 31, 8, 1, 7);
     ut::vec2_operator_modulo_equal<uint16_t>(25, 31, 8, 1, 7);
@@ -742,7 +742,7 @@ TEST(math_tests, vec2_operator_modulo_equal)
     ut::vec2_operator_modulo_equal<int64_t>(25, 31, 8, 1, 7);
 }
 
-TEST(math_tests, vec2_operator_modulo)
+TEST(vec2_tests, vec2_operator_modulo)
 {
     ut::vec2_operator_modulo<uint8_t>(25, 31, 8, 1, 7);
     ut::vec2_operator_modulo<uint16_t>(25, 31, 8, 1, 7);
@@ -754,7 +754,7 @@ TEST(math_tests, vec2_operator_modulo)
     ut::vec2_operator_modulo<int64_t>(25, 31, 8, 1, 7);
 }
 
-TEST(math_tests, vec2_operator_negative)
+TEST(vec2_tests, vec2_operator_negative)
 {
     ut::vec2_operator_negative<int8_t>(25, 31);
     ut::vec2_operator_negative<int16_t>(25, 31);
@@ -765,7 +765,7 @@ TEST(math_tests, vec2_operator_negative)
     ut::vec2_operator_negative<long double>(66.875, 226.25);
 }
 
-TEST(math_tests, vec2_hash)
+TEST(vec2_tests, vec2_hash)
 {
     ut::vec2_hash<uint8_t>(25, 31);
     ut::vec2_hash<uint16_t>(25, 31);
@@ -785,7 +785,7 @@ TEST(math_tests, vec2_hash)
     ASSERT_EQ(std::hash<math::vec2<uint8_t>>{}(vu8), std::hash<math::vec2<uint8_t>>{}(vu8bis));
 }
 
-TEST(math_tests, vec2_format)
+TEST(vec2_tests, vec2_format)
 {
     ut::vec2_format<uint8_t>(25, 31);
     ut::vec2_format<uint16_t>(25, 31);
