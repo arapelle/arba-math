@@ -13,10 +13,12 @@ set_build_type_ifndef()
 
 # C++ PROJECT
 
-set(PROJECT_NAME "arba-math")
-set(project_namespace "arba")
-set(project_base_name "math")
-set(PROJECT_VERSION 0.5.0)
+set_project_name(NAMESPACE "arba" BASE_NAME "math")
+string(TIMESTAMP configure_datetime "%Y%m%d-%H%M%S" UTC)
+set_project_semantic_version("0.5.0"
+    PRE_RELEASE "dev"
+    BUILD_METADATA "${configure_datetime}"
+)
 project(${PROJECT_NAME}
     VERSION ${PROJECT_VERSION}
     DESCRIPTION "A tiny C++ library providing useful math tools."
@@ -28,9 +30,10 @@ include(CTest)
 # C++ LIBRARY
 
 ## Generated/Configured headers:
-generate_version_macro_header(generated_version_header
-                              ${project_namespace}_${project_base_name}
-                              ${project_namespace}/${project_base_name}/version.hpp)
+configure_headers(configured_headers
+    FILES
+        include/${PROJECT_NAMESPACE}/${PROJECT_BASE_NAME}/version.hpp.in
+)
 
 ## Headers:
 set(headers
@@ -41,7 +44,7 @@ set(headers
 ## Add C++ library
 add_cpp_library(
     HEADER_ONLY ${PROJECT_NAME}
-    HEADERS ${headers} ${generated_version_header} # ${configured_headers}
+    HEADERS ${headers} ${configured_headers}
     CXX_STANDARD 20
 )
 
@@ -69,7 +72,6 @@ endif()
 
 ## Add tests:
 option_or_set_ifdef(BUILD_${PROJECT_NAME}_TESTS "Build ${PROJECT_NAME} tests or not" OFF BUILD_arba-arba_TESTS)
-option(BUILD_${PROJECT_NAME}_TESTS "Build ${PROJECT_NAME} tests or not" OFF)
 if(BUILD_${PROJECT_NAME}_TESTS AND BUILD_TESTING)
     add_subdirectory(test)
 endif()

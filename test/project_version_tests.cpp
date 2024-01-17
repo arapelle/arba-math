@@ -1,11 +1,10 @@
 #include <arba/math/version.hpp>
-#include <cstdlib>
 #include <gtest/gtest.h>
 
-TEST(project_version_tests, test_version_macros)
+TEST(project_version_tests, test_version_math)
 {
-    ASSERT_EQ(ARBA_MATH_VERSION_MAJOR, 0);
-    ASSERT_EQ(ARBA_MATH_VERSION_MINOR, 5);
-    ASSERT_EQ(ARBA_MATH_VERSION_PATCH, 0);
-    ASSERT_STREQ(ARBA_MATH_VERSION, "0.5.0");
+    constexpr unsigned major = 0;
+    constexpr unsigned minor = 5;
+    constexpr unsigned patch = 0;
+    static_assert(arba::math::version.core() == arba::vrsn::tri_version(major, minor, patch));
 }
