@@ -8,6 +8,8 @@ inline namespace arba
 namespace math::concepts
 {
 
+// clang-format off
+
 // concept comparable_arithmetic:
 template <typename num>
 concept comparable_arithmetic =
@@ -66,6 +68,8 @@ requires requires(left_comparable_arithmetic lhs, const right_comparable_arithme
     { lhs %= rhs } -> std::same_as<left_comparable_arithmetic&>;
 }
 inline constexpr bool is_modable<left_comparable_arithmetic, right_comparable_arithmetic> = true;
+
+// clang-format on
 
 }
 }
