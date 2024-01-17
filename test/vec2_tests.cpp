@@ -313,6 +313,14 @@ void vec2_hash(number x1, number y1)
     }
     ASSERT_EQ(std::hash<math::vec2<number>>{}(vec), expected_hash);
 }
+
+template <typename number>
+void vec2_format(number x1, number y1)
+{
+    math::vec2<number> vec(x1, y1);
+    std::string str = std::format("{}", vec);
+    ASSERT_EQ(str, std::format("{} {}", vec.x(), vec.y()));
+}
 }
 
 // Unit tests:
@@ -777,8 +785,17 @@ TEST(math_tests, vec2_hash)
     ASSERT_EQ(std::hash<math::vec2<uint8_t>>{}(vu8), std::hash<math::vec2<uint8_t>>{}(vu8bis));
 }
 
-int main(int argc, char** argv)
+TEST(math_tests, vec2_format)
 {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+    ut::vec2_format<uint8_t>(25, 31);
+    ut::vec2_format<uint16_t>(25, 31);
+    ut::vec2_format<uint32_t>(25, 31);
+    ut::vec2_format<uint64_t>(25, 31);
+    ut::vec2_format<int8_t>(25, 31);
+    ut::vec2_format<int16_t>(25, 31);
+    ut::vec2_format<int32_t>(25, 31);
+    ut::vec2_format<int64_t>(25, 31);
+    ut::vec2_format<float>(66.875, 226.25);
+    ut::vec2_format<double>(66.875, 226.25);
+    ut::vec2_format<long double>(66.875, 226.25);
 }

@@ -5,6 +5,7 @@
 #include <arba/core/hash.hpp>
 #include <array>
 #include <cstdint>
+#include <format>
 #include <ostream>
 #include <string>
 #include <type_traits>
@@ -268,3 +269,19 @@ struct hash<::arba::math::vec2<num>>
 };
 
 }
+
+template <::arba::math::concepts::comparable_arithmetic NumberType, class CharT>
+struct std::formatter<::arba::math::vec2<NumberType>, CharT>
+{
+    template <class FormatParseContext>
+    inline constexpr auto parse(FormatParseContext& ctx)
+    {
+        return ctx.begin();
+    }
+
+    template <class FormatContext>
+    auto format(const ::arba::math::vec2<NumberType>& vec, FormatContext& ctx) const
+    {
+        return std::format_to(ctx.out(), "{} {}", vec.x(), vec.y());
+    }
+};
