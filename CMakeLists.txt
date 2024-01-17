@@ -47,7 +47,7 @@ add_cpp_library(
 
 ## Link C++ targets:
 if(NOT TARGET arba-core)
-    find_package(arba-core 0.14.0 REQUIRED CONFIG)
+    find_package(arba-core 0.26.0 REQUIRED CONFIG)
 endif()
 target_link_libraries(${PROJECT_NAME} INTERFACE arba-core)
 
