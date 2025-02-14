@@ -38,7 +38,6 @@ configure_headers(configured_headers
 
 ## Headers:
 set(headers
-    include/arba/math/concepts.hpp
     include/arba/math/vec2.hpp
 )
 
