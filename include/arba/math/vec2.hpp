@@ -16,11 +16,11 @@ inline namespace arba
 namespace math
 {
 
-template <concepts::comparable_arithmetic num>
+template <ComparableArithmetic NumberType>
 class vec2
 {
 public:
-    using number_type = num;
+    using number_type = NumberType;
 
     // constructors:
     inline constexpr vec2() : x_(0), y_(0) {}
@@ -28,16 +28,16 @@ public:
     inline constexpr vec2(vec2&& vec) = default;
     inline constexpr vec2(const number_type& x, const number_type& y) : x_(x), y_(y) {}
 
-    template <concepts::comparable_arithmetic xnum, concepts::comparable_arithmetic ynum>
-        requires std::is_convertible_v<xnum, number_type> && std::is_convertible_v<ynum, number_type>
-    inline constexpr vec2(const xnum& x, const ynum& y)
+    template <ComparableArithmetic XType, ComparableArithmetic YType>
+        requires std::is_convertible_v<XType, number_type> && std::is_convertible_v<YType, number_type>
+    inline constexpr vec2(const XType& x, const YType& y)
         : x_(static_cast<number_type>(x)), y_(static_cast<number_type>(y))
     {
     }
 
-    template <concepts::comparable_arithmetic other_num>
-        requires(!std::is_same_v<other_num, number_type>)
-    inline constexpr explicit vec2(const vec2<other_num>& vec) : vec2(vec.x(), vec.y())
+    template <ComparableArithmetic OtherNumberType>
+        requires(!std::is_same_v<OtherNumberType, number_type>)
+    inline constexpr explicit vec2(const vec2<OtherNumberType>& vec) : vec2(vec.x(), vec.y())
     {
     }
 
@@ -45,18 +45,18 @@ public:
     inline vec2& operator=(const vec2& vec) = default;
     inline vec2& operator=(vec2&& vec) = default;
 
-    template <concepts::comparable_arithmetic other_num>
-        requires(!std::is_same_v<other_num, number_type>)
-    inline vec2& operator=(const vec2<other_num>& vec)
+    template <ComparableArithmetic OtherNumberType>
+        requires(!std::is_same_v<OtherNumberType, number_type>)
+    inline vec2& operator=(const vec2<OtherNumberType>& vec)
     {
         x_ = static_cast<number_type>(vec.x());
         y_ = static_cast<number_type>(vec.y());
         return *this;
     }
 
-    template <concepts::comparable_arithmetic other_num>
-        requires(!std::is_same_v<other_num, number_type>)
-    inline vec2& operator=(vec2<other_num>&& vec)
+    template <ComparableArithmetic OtherNumberType>
+        requires(!std::is_same_v<OtherNumberType, number_type>)
+    inline vec2& operator=(vec2<OtherNumberType>&& vec)
     {
         x_ = number_type(std::move(vec.x()));
         y_ = number_type(std::move(vec.y()));
@@ -73,16 +73,16 @@ public:
     inline constexpr bool operator==(const vec2& rfs) const = default;
     inline constexpr bool operator!=(const vec2& rfs) const = default;
 
-    template <concepts::comparable_arithmetic other_num>
-        requires(!std::is_same_v<other_num, number_type>)
-    inline constexpr bool operator==(const vec2<other_num>& rfs) const
+    template <ComparableArithmetic OtherNumberType>
+        requires(!std::is_same_v<OtherNumberType, number_type>)
+    inline constexpr bool operator==(const vec2<OtherNumberType>& rfs) const
     {
         return x_ == rfs.x() && y_ == rfs.y();
     }
 
-    template <concepts::comparable_arithmetic other_num>
-        requires(!std::is_same_v<other_num, number_type>)
-    inline constexpr bool operator!=(const vec2<other_num>& rfs) const
+    template <ComparableArithmetic OtherNumberType>
+        requires(!std::is_same_v<OtherNumberType, number_type>)
+    inline constexpr bool operator!=(const vec2<OtherNumberType>& rfs) const
     {
         return x_ != rfs.x() || y_ != rfs.y();
     }
@@ -98,8 +98,8 @@ public:
         return *this;
     }
 
-    template <concepts::comparable_arithmetic other_num>
-    inline vec2& operator+=(const vec2<other_num>& vec)
+    template <ComparableArithmetic OtherNumberType>
+    inline vec2& operator+=(const vec2<OtherNumberType>& vec)
     {
         x_ += static_cast<number_type>(vec.x());
         y_ += static_cast<number_type>(vec.y());
@@ -114,8 +114,8 @@ public:
         return *this;
     }
 
-    template <concepts::comparable_arithmetic other_num>
-    inline vec2& operator-=(const vec2<other_num>& vec)
+    template <ComparableArithmetic OtherNumberType>
+    inline vec2& operator-=(const vec2<OtherNumberType>& vec)
     {
         x_ -= vec.x();
         y_ -= vec.y();
@@ -130,8 +130,8 @@ public:
         return *this;
     }
 
-    template <concepts::comparable_arithmetic other_num>
-    inline vec2& operator*=(const other_num& value)
+    template <ComparableArithmetic OtherNumberType>
+    inline vec2& operator*=(const OtherNumberType& value)
     {
         x_ *= value;
         y_ *= value;
@@ -146,8 +146,8 @@ public:
         return *this;
     }
 
-    template <concepts::comparable_arithmetic other_num>
-    inline vec2& operator/=(const other_num& value)
+    template <ComparableArithmetic OtherNumberType>
+    inline vec2& operator/=(const OtherNumberType& value)
     {
         x_ /= value;
         y_ /= value;
@@ -155,9 +155,9 @@ public:
     }
 
     // modulo:
-    template <concepts::comparable_arithmetic other_num>
-        requires concepts::is_modable<number_type, other_num>
-    inline vec2& operator%=(const other_num& value)
+    template <ComparableArithmetic OtherNumberType>
+        requires concepts::is_modable<number_type, OtherNumberType>
+    inline vec2& operator%=(const OtherNumberType& value)
     {
         x_ %= value;
         y_ %= value;
@@ -169,44 +169,44 @@ private:
     number_type y_;
 };
 
-template <concepts::comparable_arithmetic left_number, concepts::comparable_arithmetic right_number>
-    requires concepts::are_operable<left_number, right_number>
-inline constexpr auto operator+(const vec2<left_number>& lhs, const vec2<right_number>& rhs)
+template <ComparableArithmetic LeftNumberType, ComparableArithmetic RightNumberType>
+    requires concepts::are_operable<LeftNumberType, RightNumberType>
+inline constexpr auto operator+(const vec2<LeftNumberType>& lhs, const vec2<RightNumberType>& rhs)
 {
     return vec2(lhs.x() + rhs.x(), lhs.y() + rhs.y());
 }
 
-template <concepts::comparable_arithmetic left_number, concepts::comparable_arithmetic right_number>
-    requires concepts::are_operable<left_number, right_number>
-inline constexpr auto operator-(const vec2<left_number>& lhs, const vec2<right_number>& rhs)
+template <ComparableArithmetic LeftNumberType, ComparableArithmetic RightNumberType>
+    requires concepts::are_operable<LeftNumberType, RightNumberType>
+inline constexpr auto operator-(const vec2<LeftNumberType>& lhs, const vec2<RightNumberType>& rhs)
 {
     return vec2(lhs.x() - rhs.x(), lhs.y() - rhs.y());
 }
 
-template <concepts::comparable_arithmetic left_number, concepts::comparable_arithmetic right_number>
-    requires concepts::are_operable<left_number, right_number>
-inline constexpr auto operator*(const vec2<left_number>& lhs, const right_number& rhs)
+template <ComparableArithmetic LeftNumberType, ComparableArithmetic RightNumberType>
+    requires concepts::are_operable<LeftNumberType, RightNumberType>
+inline constexpr auto operator*(const vec2<LeftNumberType>& lhs, const RightNumberType& rhs)
 {
     return vec2(lhs.x() * rhs, lhs.y() * rhs);
 }
 
-template <concepts::comparable_arithmetic left_number, concepts::comparable_arithmetic right_number>
-    requires concepts::are_operable<left_number, right_number>
-inline constexpr auto operator/(const vec2<left_number>& lhs, const right_number& rhs)
+template <ComparableArithmetic LeftNumberType, ComparableArithmetic RightNumberType>
+    requires concepts::are_operable<LeftNumberType, RightNumberType>
+inline constexpr auto operator/(const vec2<LeftNumberType>& lhs, const RightNumberType& rhs)
 {
     return vec2(lhs.x() / rhs, lhs.y() / rhs);
 }
 
-template <concepts::comparable_arithmetic left_number, concepts::comparable_arithmetic right_number>
-    requires concepts::is_modable<left_number, right_number>
-inline constexpr auto operator%(const vec2<left_number>& lhs, const right_number& rhs)
+template <ComparableArithmetic LeftNumberType, ComparableArithmetic RightNumberType>
+    requires concepts::is_modable<LeftNumberType, RightNumberType>
+inline constexpr auto operator%(const vec2<LeftNumberType>& lhs, const RightNumberType& rhs)
 {
     return vec2(lhs.x() % rhs, lhs.y() % rhs);
 }
 
 // text serialization:
-template <concepts::comparable_arithmetic num>
-inline std::ostream& operator<<(std::ostream& stream, const vec2<num>& vec)
+template <ComparableArithmetic NumberType>
+inline std::ostream& operator<<(std::ostream& stream, const vec2<NumberType>& vec)
 {
     return stream << vec.x() << " " << vec.y();
 }
@@ -239,20 +239,17 @@ using vec2ld = vec2<long double>;
 } // namespace math
 } // namespace arba
 
-namespace std
+template <::arba::math::ComparableArithmetic NumberType>
+    requires std::is_fundamental_v<NumberType>
+struct std::hash<::arba::math::vec2<NumberType>>
 {
-
-template <::arba::math::concepts::comparable_arithmetic num>
-    requires std::is_fundamental_v<num>
-struct hash<::arba::math::vec2<num>>
-{
-    std::size_t operator()(const ::arba::math::vec2<num>& vec) const
+    std::size_t operator()(const ::arba::math::vec2<NumberType>& vec) const
     {
-        if constexpr (sizeof(::arba::math::vec2<num>) <= sizeof(std::size_t))
+        if constexpr (sizeof(::arba::math::vec2<NumberType>) <= sizeof(std::size_t))
         {
             union vec_to_hash
             {
-                ::arba::math::vec2<num> vec;
+                ::arba::math::vec2<NumberType> vec;
                 std::size_t hash_value;
             } hasher(vec);
             return hasher.hash_value;
@@ -261,17 +258,15 @@ struct hash<::arba::math::vec2<num>>
         {
             union vec_to_bytes
             {
-                ::arba::math::vec2<num> vec;
-                std::array<uint8_t, sizeof(::arba::math::vec2<num>)> bytes;
+                ::arba::math::vec2<NumberType> vec;
+                std::array<uint8_t, sizeof(::arba::math::vec2<NumberType>)> bytes;
             } vtobytes(vec);
             return ::arba::hash::murmur_hash_64(vtobytes.bytes);
         }
     }
 };
 
-} // namespace std
-
-template <::arba::math::concepts::comparable_arithmetic NumberType, class CharT>
+template <::arba::math::ComparableArithmetic NumberType, class CharT>
 struct std::formatter<::arba::math::vec2<NumberType>, CharT>
 {
     template <class FormatParseContext>

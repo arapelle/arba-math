@@ -6,56 +6,56 @@
 
 namespace ut
 {
-template <typename number>
+template <typename Number>
 void vec2_constructor_empty()
 {
-    arba::math::vec2<number> vec;
+    arba::math::vec2<Number> vec;
     ASSERT_EQ(vec.x(), 0);
     ASSERT_EQ(vec.y(), 0);
     ASSERT_EQ(&vec.x(), &vec.x());
     ASSERT_EQ(&vec.y(), &vec.y());
 }
 
-template <typename number>
-void vec2_constructor(const number& x, const number& y)
+template <typename Number>
+void vec2_constructor(const Number& x, const Number& y)
 {
-    math::vec2<number> vec(x, y);
+    math::vec2<Number> vec(x, y);
     ASSERT_EQ(vec.x(), x);
     ASSERT_EQ(vec.y(), y);
 }
 
-template <typename number, typename other_number>
-    requires std::is_same_v<number, other_number>
-void vec2_constructor_copy(const math::vec2<other_number>& v)
+template <typename Number, typename OtherNumber>
+    requires std::is_same_v<Number, OtherNumber>
+void vec2_constructor_copy(const math::vec2<OtherNumber>& v)
 {
-    math::vec2<number> vec(v);
+    math::vec2<Number> vec(v);
     ASSERT_EQ(vec.x(), v.x());
     ASSERT_EQ(vec.y(), v.y());
 }
 
-template <typename number, typename other_number>
-    requires(!std::is_same_v<number, other_number>)
-void vec2_constructor_other(const other_number& x, const other_number& y)
+template <typename Number, typename OtherNumber>
+    requires(!std::is_same_v<Number, OtherNumber>)
+void vec2_constructor_other(const OtherNumber& x, const OtherNumber& y)
 {
-    math::vec2<number> vec(x, y);
-    ASSERT_EQ(vec.x(), number(x));
-    ASSERT_EQ(vec.y(), number(y));
+    math::vec2<Number> vec(x, y);
+    ASSERT_EQ(vec.x(), Number(x));
+    ASSERT_EQ(vec.y(), Number(y));
 }
 
-template <typename number, typename other_number>
-    requires(!std::is_same_v<number, other_number>)
-void vec2_constructor_copy_other(const math::vec2<other_number>& v)
+template <typename Number, typename OtherNumber>
+    requires(!std::is_same_v<Number, OtherNumber>)
+void vec2_constructor_copy_other(const math::vec2<OtherNumber>& v)
 {
-    math::vec2<number> vec(v);
-    ASSERT_EQ(vec.x(), number(v.x()));
-    ASSERT_EQ(vec.y(), number(v.y()));
+    math::vec2<Number> vec(v);
+    ASSERT_EQ(vec.x(), Number(v.x()));
+    ASSERT_EQ(vec.y(), Number(v.y()));
 }
 
-template <typename number, typename other_number>
-    requires std::is_same_v<number, other_number>
-void vec2_assignment(const math::vec2<other_number>& v)
+template <typename Number, typename OtherNumber>
+    requires std::is_same_v<Number, OtherNumber>
+void vec2_assignment(const math::vec2<OtherNumber>& v)
 {
-    math::vec2<number> vec;
+    math::vec2<Number> vec;
     ASSERT_NE(vec.x(), v.x());
     ASSERT_NE(vec.y(), v.y());
     vec = v;
@@ -63,243 +63,243 @@ void vec2_assignment(const math::vec2<other_number>& v)
     ASSERT_EQ(vec.y(), v.y());
 }
 
-template <typename number, typename other_number>
-    requires(!std::is_same_v<number, other_number>)
-void vec2_assignment_other(const math::vec2<other_number>& v)
+template <typename Number, typename OtherNumber>
+    requires(!std::is_same_v<Number, OtherNumber>)
+void vec2_assignment_other(const math::vec2<OtherNumber>& v)
 {
-    math::vec2<number> vec;
-    ASSERT_NE(vec.x(), number(v.x()));
-    ASSERT_NE(vec.y(), number(v.y()));
+    math::vec2<Number> vec;
+    ASSERT_NE(vec.x(), Number(v.x()));
+    ASSERT_NE(vec.y(), Number(v.y()));
     vec = v;
-    ASSERT_EQ(vec.x(), number(v.x()));
-    ASSERT_EQ(vec.y(), number(v.y()));
+    ASSERT_EQ(vec.x(), Number(v.x()));
+    ASSERT_EQ(vec.y(), Number(v.y()));
 }
 
-template <typename number, typename other_number>
-    requires std::is_same_v<number, other_number>
-void vec2_operator_equal(const math::vec2<other_number>& v)
+template <typename Number, typename OtherNumber>
+    requires std::is_same_v<Number, OtherNumber>
+void vec2_operator_equal(const math::vec2<OtherNumber>& v)
 {
-    math::vec2<number> vec(v);
+    math::vec2<Number> vec(v);
     ASSERT_EQ(vec, v);
 }
 
-template <typename number, typename other_number>
-    requires std::is_same_v<number, other_number>
-void vec2_operator_not_equal(const math::vec2<other_number>& v)
+template <typename Number, typename OtherNumber>
+    requires std::is_same_v<Number, OtherNumber>
+void vec2_operator_not_equal(const math::vec2<OtherNumber>& v)
 {
-    math::vec2<number> vec;
+    math::vec2<Number> vec;
     ASSERT_NE(vec, v);
 }
 
-template <typename number, typename other_number>
-    requires(!std::is_same_v<number, other_number>)
-void vec2_operator_equal_other(const math::vec2<other_number>& v)
+template <typename Number, typename OtherNumber>
+    requires(!std::is_same_v<Number, OtherNumber>)
+void vec2_operator_equal_other(const math::vec2<OtherNumber>& v)
 {
-    math::vec2<number> vec(v);
-    ASSERT_EQ(vec, math::vec2<number>(v));
-    if constexpr (std::is_integral_v<number>)
+    math::vec2<Number> vec(v);
+    ASSERT_EQ(vec, math::vec2<Number>(v));
+    if constexpr (std::is_integral_v<Number>)
     {
         ASSERT_NE(vec, v);
     }
 }
 
-template <typename number, typename other_number>
-    requires(!std::is_same_v<number, other_number>)
-void vec2_operator_not_equal_other(const math::vec2<other_number>& v)
+template <typename Number, typename OtherNumber>
+    requires(!std::is_same_v<Number, OtherNumber>)
+void vec2_operator_not_equal_other(const math::vec2<OtherNumber>& v)
 {
-    math::vec2<number> vec;
+    math::vec2<Number> vec;
     ASSERT_NE(vec, v);
 }
 
 // plus:
 
-template <typename number>
-void vec2_operator_plus_equal(number x1, number y1, number x2, number y2, number xr, number yr)
+template <typename Number>
+void vec2_operator_plus_equal(Number x1, Number y1, Number x2, Number y2, Number xr, Number yr)
 {
-    math::vec2<number> v1(x1, y1);
-    math::vec2<number> v2(x2, y2);
-    math::vec2<number> vr(xr, yr);
+    math::vec2<Number> v1(x1, y1);
+    math::vec2<Number> v2(x2, y2);
+    math::vec2<Number> vr(xr, yr);
     ASSERT_EQ(v1 += v2, vr);
 }
 
-template <typename number, typename other_number, typename res_number>
-    requires(!std::is_same_v<number, other_number>)
-void vec2_operator_plus_equal_other(number x1, number y1, other_number x2, other_number y2, res_number xr,
-                                    res_number yr)
+template <typename Number, typename OtherNumber, typename ResNumber>
+    requires(!std::is_same_v<Number, OtherNumber>)
+void vec2_operator_plus_equal_other(Number x1, Number y1, OtherNumber x2, OtherNumber y2, ResNumber xr,
+                                    ResNumber yr)
 {
-    math::vec2<number> v1(x1, y1);
-    math::vec2<other_number> v2(x2, y2);
-    math::vec2<res_number> vr(xr, yr);
+    math::vec2<Number> v1(x1, y1);
+    math::vec2<OtherNumber> v2(x2, y2);
+    math::vec2<ResNumber> vr(xr, yr);
     ASSERT_EQ(v1 += v2, vr);
 }
 
-template <typename number>
-void vec2_operator_plus(number x1, number y1, number x2, number y2, number xr, number yr)
+template <typename Number>
+void vec2_operator_plus(Number x1, Number y1, Number x2, Number y2, Number xr, Number yr)
 {
-    math::vec2<number> v1(x1, y1);
-    math::vec2<number> v2(x2, y2);
-    math::vec2<number> vr(xr, yr);
+    math::vec2<Number> v1(x1, y1);
+    math::vec2<Number> v2(x2, y2);
+    math::vec2<Number> vr(xr, yr);
     ASSERT_EQ(v1 + v2, vr);
 }
 
-template <typename number, typename other_number, typename res_number>
-    requires(!std::is_same_v<number, other_number>)
-void vec2_operator_plus_other(number x1, number y1, other_number x2, other_number y2, res_number xr, res_number yr)
+template <typename Number, typename OtherNumber, typename ResNumber>
+    requires(!std::is_same_v<Number, OtherNumber>)
+void vec2_operator_plus_other(Number x1, Number y1, OtherNumber x2, OtherNumber y2, ResNumber xr, ResNumber yr)
 {
-    math::vec2<number> v1(x1, y1);
-    math::vec2<other_number> v2(x2, y2);
-    math::vec2<res_number> vr(xr, yr);
+    math::vec2<Number> v1(x1, y1);
+    math::vec2<OtherNumber> v2(x2, y2);
+    math::vec2<ResNumber> vr(xr, yr);
     ASSERT_EQ(v1 + v2, vr);
 }
 
 // minus:
 
-template <typename number>
-void vec2_operator_minus_equal(number x1, number y1, number x2, number y2, number xr, number yr)
+template <typename Number>
+void vec2_operator_minus_equal(Number x1, Number y1, Number x2, Number y2, Number xr, Number yr)
 {
-    math::vec2<number> v1(x1, y1);
-    math::vec2<number> v2(x2, y2);
-    math::vec2<number> vr(xr, yr);
+    math::vec2<Number> v1(x1, y1);
+    math::vec2<Number> v2(x2, y2);
+    math::vec2<Number> vr(xr, yr);
     ASSERT_EQ(v1 -= v2, vr);
 }
 
-template <typename number, typename other_number, typename res_number>
-    requires(!std::is_same_v<number, other_number>)
-void vec2_operator_minus_equal_other(number x1, number y1, other_number x2, other_number y2, res_number xr,
-                                     res_number yr)
+template <typename Number, typename OtherNumber, typename ResNumber>
+    requires(!std::is_same_v<Number, OtherNumber>)
+void vec2_operator_minus_equal_other(Number x1, Number y1, OtherNumber x2, OtherNumber y2, ResNumber xr,
+                                     ResNumber yr)
 {
-    math::vec2<number> v1(x1, y1);
-    math::vec2<other_number> v2(x2, y2);
-    math::vec2<res_number> vr(xr, yr);
+    math::vec2<Number> v1(x1, y1);
+    math::vec2<OtherNumber> v2(x2, y2);
+    math::vec2<ResNumber> vr(xr, yr);
     ASSERT_EQ(v1 -= v2, vr);
 }
 
-template <typename number>
-void vec2_operator_minus(number x1, number y1, number x2, number y2, number xr, number yr)
+template <typename Number>
+void vec2_operator_minus(Number x1, Number y1, Number x2, Number y2, Number xr, Number yr)
 {
-    math::vec2<number> v1(x1, y1);
-    math::vec2<number> v2(x2, y2);
-    math::vec2<number> vr(xr, yr);
+    math::vec2<Number> v1(x1, y1);
+    math::vec2<Number> v2(x2, y2);
+    math::vec2<Number> vr(xr, yr);
     ASSERT_EQ(v1 - v2, vr);
 }
 
-template <typename number, typename other_number, typename res_number>
-    requires(!std::is_same_v<number, other_number>)
-void vec2_operator_minus_other(number x1, number y1, other_number x2, other_number y2, res_number xr, res_number yr)
+template <typename Number, typename OtherNumber, typename ResNumber>
+    requires(!std::is_same_v<Number, OtherNumber>)
+void vec2_operator_minus_other(Number x1, Number y1, OtherNumber x2, OtherNumber y2, ResNumber xr, ResNumber yr)
 {
-    math::vec2<number> v1(x1, y1);
-    math::vec2<other_number> v2(x2, y2);
-    math::vec2<res_number> vr(xr, yr);
+    math::vec2<Number> v1(x1, y1);
+    math::vec2<OtherNumber> v2(x2, y2);
+    math::vec2<ResNumber> vr(xr, yr);
     ASSERT_EQ(v1 - v2, vr);
 }
 
 // multiplies:
 
-template <typename number>
-void vec2_operator_multiplies_equal(number x1, number y1, number value, number xr, number yr)
+template <typename Number>
+void vec2_operator_multiplies_equal(Number x1, Number y1, Number value, Number xr, Number yr)
 {
-    math::vec2<number> v1(x1, y1);
-    math::vec2<number> vr(xr, yr);
+    math::vec2<Number> v1(x1, y1);
+    math::vec2<Number> vr(xr, yr);
     ASSERT_EQ(v1 *= value, vr);
 }
 
-template <typename number, typename other_number, typename res_number>
-    requires(!std::is_same_v<number, other_number>)
-void vec2_operator_multiplies_equal_other(number x1, number y1, other_number value, res_number xr, res_number yr)
+template <typename Number, typename OtherNumber, typename ResNumber>
+    requires(!std::is_same_v<Number, OtherNumber>)
+void vec2_operator_multiplies_equal_other(Number x1, Number y1, OtherNumber value, ResNumber xr, ResNumber yr)
 {
-    math::vec2<number> v1(x1, y1);
-    math::vec2<res_number> vr(xr, yr);
+    math::vec2<Number> v1(x1, y1);
+    math::vec2<ResNumber> vr(xr, yr);
     ASSERT_EQ(v1 *= value, vr);
 }
 
-template <typename number>
-void vec2_operator_multiplies(number x1, number y1, number value, number xr, number yr)
+template <typename Number>
+void vec2_operator_multiplies(Number x1, Number y1, Number value, Number xr, Number yr)
 {
-    math::vec2<number> v1(x1, y1);
-    math::vec2<number> vr(xr, yr);
+    math::vec2<Number> v1(x1, y1);
+    math::vec2<Number> vr(xr, yr);
     ASSERT_EQ(v1 * value, vr);
 }
 
-template <typename number, typename other_number, typename res_number>
-    requires(!std::is_same_v<number, other_number>)
-void vec2_operator_multiplies_other(number x1, number y1, other_number value, res_number xr, res_number yr)
+template <typename Number, typename OtherNumber, typename ResNumber>
+    requires(!std::is_same_v<Number, OtherNumber>)
+void vec2_operator_multiplies_other(Number x1, Number y1, OtherNumber value, ResNumber xr, ResNumber yr)
 {
-    math::vec2<number> v1(x1, y1);
-    math::vec2<res_number> vr(xr, yr);
+    math::vec2<Number> v1(x1, y1);
+    math::vec2<ResNumber> vr(xr, yr);
     ASSERT_EQ(v1 * value, vr);
 }
 
 // divides:
 
-template <typename number>
-void vec2_operator_divides_equal(number x1, number y1, number value, number xr, number yr)
+template <typename Number>
+void vec2_operator_divides_equal(Number x1, Number y1, Number value, Number xr, Number yr)
 {
-    math::vec2<number> v1(x1, y1);
-    math::vec2<number> vr(xr, yr);
+    math::vec2<Number> v1(x1, y1);
+    math::vec2<Number> vr(xr, yr);
     ASSERT_EQ(v1 /= value, vr);
 }
 
-template <typename number, typename other_number, typename res_number>
-    requires(!std::is_same_v<number, other_number>)
-void vec2_operator_divides_equal_other(number x1, number y1, other_number value, res_number xr, res_number yr)
+template <typename Number, typename OtherNumber, typename ResNumber>
+    requires(!std::is_same_v<Number, OtherNumber>)
+void vec2_operator_divides_equal_other(Number x1, Number y1, OtherNumber value, ResNumber xr, ResNumber yr)
 {
-    math::vec2<number> v1(x1, y1);
-    math::vec2<res_number> vr(xr, yr);
+    math::vec2<Number> v1(x1, y1);
+    math::vec2<ResNumber> vr(xr, yr);
     ASSERT_EQ(v1 /= value, vr);
 }
 
-template <typename number>
-void vec2_operator_divides(number x1, number y1, number value, number xr, number yr)
+template <typename Number>
+void vec2_operator_divides(Number x1, Number y1, Number value, Number xr, Number yr)
 {
-    math::vec2<number> v1(x1, y1);
-    math::vec2<number> vr(xr, yr);
+    math::vec2<Number> v1(x1, y1);
+    math::vec2<Number> vr(xr, yr);
     ASSERT_EQ(v1 / value, vr);
 }
 
-template <typename number, typename other_number, typename res_number>
-    requires(!std::is_same_v<number, other_number>)
-void vec2_operator_divides_other(number x1, number y1, other_number value, res_number xr, res_number yr)
+template <typename Number, typename OtherNumber, typename ResNumber>
+    requires(!std::is_same_v<Number, OtherNumber>)
+void vec2_operator_divides_other(Number x1, Number y1, OtherNumber value, ResNumber xr, ResNumber yr)
 {
-    math::vec2<number> v1(x1, y1);
-    math::vec2<res_number> vr(xr, yr);
+    math::vec2<Number> v1(x1, y1);
+    math::vec2<ResNumber> vr(xr, yr);
     ASSERT_EQ(v1 / value, vr);
 }
 
 // modulo:
-template <typename number>
-void vec2_operator_modulo_equal(number x1, number y1, number value, number xr, number yr)
+template <typename Number>
+void vec2_operator_modulo_equal(Number x1, Number y1, Number value, Number xr, Number yr)
 {
-    math::vec2<number> v1(x1, y1);
-    math::vec2<number> vr(xr, yr);
+    math::vec2<Number> v1(x1, y1);
+    math::vec2<Number> vr(xr, yr);
     ASSERT_EQ(v1 %= value, vr);
 }
 
-template <typename number>
-void vec2_operator_modulo(number x1, number y1, number value, number xr, number yr)
+template <typename Number>
+void vec2_operator_modulo(Number x1, Number y1, Number value, Number xr, Number yr)
 {
-    math::vec2<number> v1(x1, y1);
-    math::vec2<number> vr(xr, yr);
+    math::vec2<Number> v1(x1, y1);
+    math::vec2<Number> vr(xr, yr);
     ASSERT_EQ(v1 % value, vr);
 }
 
-template <typename number>
-void vec2_operator_negative(number x1, number y1)
+template <typename Number>
+void vec2_operator_negative(Number x1, Number y1)
 {
-    math::vec2<number> v1(x1, y1);
-    math::vec2<number> vr(-x1, -y1);
+    math::vec2<Number> v1(x1, y1);
+    math::vec2<Number> vr(-x1, -y1);
     ASSERT_EQ(-v1, vr);
 }
 
-template <typename number>
-void vec2_hash(number x1, number y1)
+template <typename Number>
+void vec2_hash(Number x1, Number y1)
 {
-    math::vec2<number> vec(x1, y1);
+    math::vec2<Number> vec(x1, y1);
     std::size_t expected_hash = 0;
-    if constexpr (sizeof(math::vec2<number>) <= sizeof(std::size_t))
+    if constexpr (sizeof(math::vec2<Number>) <= sizeof(std::size_t))
     {
         union hasher
         {
-            math::vec2<number> vec;
+            math::vec2<Number> vec;
             std::size_t hash_value;
         } hasher(vec);
         expected_hash = hasher.hash_value;
@@ -308,18 +308,18 @@ void vec2_hash(number x1, number y1)
     {
         union vec_to_bytes
         {
-            math::vec2<number> vec;
-            std::array<uint8_t, sizeof(math::vec2<number>)> bytes;
+            math::vec2<Number> vec;
+            std::array<uint8_t, sizeof(math::vec2<Number>)> bytes;
         } hasher(vec);
         expected_hash = hash::murmur_hash_64(hasher.bytes);
     }
-    ASSERT_EQ(std::hash<math::vec2<number>>{}(vec), expected_hash);
+    ASSERT_EQ(std::hash<math::vec2<Number>>{}(vec), expected_hash);
 }
 
-template <typename number>
-void vec2_format(number x1, number y1)
+template <typename Number>
+void vec2_format(Number x1, Number y1)
 {
-    math::vec2<number> vec(x1, y1);
+    math::vec2<Number> vec(x1, y1);
     std::string str = std::format("{}", vec);
     ASSERT_EQ(str, std::format("{} {}", vec.x(), vec.y()));
 }
