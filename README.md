@@ -1,6 +1,6 @@
 # Concept
 
-A tiny C++ library providing useful math tools.
+A C++ library providing useful math tools.
 
 - vec2
 
@@ -10,24 +10,32 @@ A tiny C++ library providing useful math tools.
 
 Binaries:
 
-- A C++20 compiler (ex: g++-13)
+- A C++20 compiler (ex: g++-14)
 - CMake 3.26 or later
-
-Libraries:
-
-- [arba-core](https://github.com/arapelle/arba-core) 0.26.0 or later
 
 Testing Libraries (optional):
 
-- [Google Test](https://github.com/google/googletest) 1.13 or later (optional)
+- [Google Test](https://github.com/google/googletest) 1.14 or later (optional)
 
 ## Clone
 
 ```
-git clone https://github.com/arapelle/arba-math --recurse-submodules
+git clone https://github.com/arapelle/arba-math
 ```
 
-## Quick Install
+## Use with `conan`
+
+Create the conan package.
+```
+conan create . --build=missing -c
+```
+Add a requirement in your conanfile project file.
+```python
+    def requirements(self):
+        self.requires("arba-math/0.3.0")
+```
+
+## Quick Install ##
 
 There is a cmake script at the root of the project which builds the library in *Release* mode and install it (default options are used).
 
@@ -67,10 +75,6 @@ int main()
     return EXIT_SUCCESS;
 }
 ```
-
-## Example - Using *arba-math* in a CMake project
-
-See *basic_cmake_project* example, and more specifically the *CMakeLists.txt* to see how to use *arba-math* in your CMake projects.
 
 # License
 

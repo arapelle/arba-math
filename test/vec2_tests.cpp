@@ -1,6 +1,8 @@
 #include <arba/math/vec2.hpp>
-#include <cstdlib>
+
 #include <gtest/gtest.h>
+
+#include <cstdlib>
 
 namespace ut
 {
@@ -309,7 +311,7 @@ void vec2_hash(number x1, number y1)
             math::vec2<number> vec;
             std::array<uint8_t, sizeof(math::vec2<number>)> bytes;
         } hasher(vec);
-        expected_hash = core::murmur_hash_64(hasher.bytes);
+        expected_hash = hash::murmur_hash_64(hasher.bytes);
     }
     ASSERT_EQ(std::hash<math::vec2<number>>{}(vec), expected_hash);
 }
@@ -321,7 +323,7 @@ void vec2_format(number x1, number y1)
     std::string str = std::format("{}", vec);
     ASSERT_EQ(str, std::format("{} {}", vec.x(), vec.y()));
 }
-}
+} // namespace ut
 
 // Unit tests:
 

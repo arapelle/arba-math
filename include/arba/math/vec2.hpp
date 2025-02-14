@@ -2,7 +2,8 @@
 
 #include "concepts.hpp"
 
-#include <arba/core/hash.hpp>
+#include <arba/hash/murmur_hash.hpp>
+
 #include <array>
 #include <cstdint>
 #include <format>
@@ -235,8 +236,8 @@ using vec2f = vec2<float>;
 using vec2d = vec2<double>;
 using vec2ld = vec2<long double>;
 
-}
-}
+} // namespace math
+} // namespace arba
 
 namespace std
 {
@@ -263,12 +264,12 @@ struct hash<::arba::math::vec2<num>>
                 ::arba::math::vec2<num> vec;
                 std::array<uint8_t, sizeof(::arba::math::vec2<num>)> bytes;
             } vtobytes(vec);
-            return core::murmur_hash_64(vtobytes.bytes);
+            return ::arba::hash::murmur_hash_64(vtobytes.bytes);
         }
     }
 };
 
-}
+} // namespace std
 
 template <::arba::math::concepts::comparable_arithmetic NumberType, class CharT>
 struct std::formatter<::arba::math::vec2<NumberType>, CharT>

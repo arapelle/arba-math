@@ -71,5 +71,5 @@ inline constexpr bool is_modable<left_comparable_arithmetic, right_comparable_ar
 
 // clang-format on
 
-}
-}
+} // namespace math::concepts
+} // namespace arba
