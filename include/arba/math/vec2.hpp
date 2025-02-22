@@ -2,8 +2,6 @@
 
 #include <arba/hash/murmur_hash.hpp>
 #include <arba/meta/concept/arithmetic.hpp>
-#include <type_traits>
-#include <cstdint>
 
 #include <array>
 #include <cstdint>
@@ -27,11 +25,17 @@ public:
     inline constexpr vec2() : x_(0), y_(0) {}
     inline constexpr vec2(const vec2& vec) = default;
     inline constexpr vec2(vec2&& vec) = default;
-    inline constexpr vec2(const number& x, const number& y) : x_(x), y_(y) {}
+    inline constexpr vec2(number x, number y) : x_(std::move(x)), y_(std::move(y)) {}
 
     template <typename XType, typename YType>
-        requires std::is_convertible_v<XType, number> && std::is_convertible_v<YType, number>
-    inline constexpr vec2(const XType& x, const YType& y) : x_(static_cast<number>(x)), y_(static_cast<number>(y))
+        requires std::constructible_from<number, const XType&> && std::constructible_from<number, const YType&>
+    inline constexpr vec2(const XType& x, const YType& y) : x_(x), y_(y)
+    {
+    }
+
+    template <typename XType, typename YType>
+        requires std::constructible_from<number, XType&&> && std::constructible_from<number, YType&&>
+    inline constexpr vec2(XType&& x, YType&& y) : x_(std::forward<XType>(x)), y_(std::forward<YType>(y))
     {
     }
 
@@ -41,21 +45,67 @@ public:
     {
     }
 
+    template <typename OtherType>
+        requires(!std::is_same_v<OtherType, number>)
+    inline constexpr explicit vec2(vec2<OtherType>&& vec) : vec2(std::move(vec.x()), std::move(vec.y()))
+    {
+    }
+
+    template <typename VecType>
+        requires requires(const VecType& arg) {
+            { Number(arg.x) };
+            { Number(arg.y) };
+        }
+    inline constexpr explicit vec2(const VecType& vec) : vec2(vec.x, vec.y)
+    {
+    }
+
+    template <typename VecType>
+        requires requires(VecType&& arg) {
+            { Number(std::move(arg.x)) };
+            { Number(std::move(arg.y)) };
+        }
+    inline constexpr explicit vec2(VecType&& vec) : vec2(std::move(vec.x), std::move(vec.y))
+    {
+    }
+
+    template <typename VecType>
+        requires requires(const VecType& arg) {
+            { Number(arg[0]) };
+            { Number(arg[1]) };
+        } && (!requires(const VecType& arg) {
+                     { arg.x };
+                 })
+    inline constexpr explicit vec2(const VecType& vec) : vec2(vec[0], vec[1])
+    {
+    }
+
+    template <typename VecType>
+        requires requires(const VecType& arg) {
+            { Number(std::move(arg[0])) };
+            { Number(std::move(arg[1])) };
+        } && (!requires(const VecType& arg) {
+                     { arg.x };
+                 })
+    inline constexpr explicit vec2(VecType&& vec) : vec2(std::move(vec[0]), std::move(vec[1]))
+    {
+    }
+
     // assignment operator:
     inline vec2& operator=(const vec2& vec) = default;
     inline vec2& operator=(vec2&& vec) = default;
 
     template <typename OtherType>
-        requires(!std::is_same_v<OtherType, number>)
+        requires std::constructible_from<number, const OtherType&>
     inline vec2& operator=(const vec2<OtherType>& vec)
     {
-        x_ = static_cast<number>(vec.x());
-        y_ = static_cast<number>(vec.y());
+        x_ = number(vec.x());
+        y_ = number(vec.y());
         return *this;
     }
 
     template <typename OtherType>
-        requires(!std::is_same_v<OtherType, number>)
+        requires std::constructible_from<number, OtherType&&>
     inline vec2& operator=(vec2<OtherType>&& vec)
     {
         x_ = number(std::move(vec.x()));
@@ -99,7 +149,7 @@ public:
     }
 
     template <typename OtherType>
-    requires meta::AdditiveAssignableWith<number, OtherType>
+        requires meta::AdditiveAssignableWith<number, OtherType>
     inline vec2& operator+=(const vec2<OtherType>& vec)
     {
         x_ += static_cast<number>(vec.x());
@@ -116,7 +166,7 @@ public:
     }
 
     template <typename OtherType>
-    requires meta::AdditiveAssignableWith<number, OtherType>
+        requires meta::AdditiveAssignableWith<number, OtherType>
     inline vec2& operator-=(const vec2<OtherType>& vec)
     {
         x_ -= vec.x();
@@ -150,7 +200,7 @@ public:
     }
 
     template <typename OtherType>
-    requires meta::MultiplicativeAssignableWith<number, OtherType>
+        requires meta::MultiplicativeAssignableWith<number, OtherType>
     inline vec2& operator/=(const OtherType& value)
     {
         x_ /= value;
@@ -160,7 +210,7 @@ public:
 
     // modulo:
     template <typename OtherType>
-    requires meta::ModuloableAssignableWith<number, OtherType>
+        requires meta::ModuloableAssignableWith<number, OtherType>
     inline vec2& operator%=(const OtherType& value)
     {
         x_ %= value;
@@ -174,7 +224,7 @@ private:
 };
 
 template <typename LeftNumber, typename RightNumber>
-requires meta::AddableWith<LeftNumber, RightNumber>
+    requires meta::AddableWith<LeftNumber, RightNumber>
 inline constexpr auto operator+(const vec2<LeftNumber>& lhs, const vec2<RightNumber>& rhs)
 {
     return vec2(lhs.x() + rhs.x(), lhs.y() + rhs.y());

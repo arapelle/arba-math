@@ -2,10 +2,53 @@
 
 #include <gtest/gtest.h>
 
+#include <cassert>
 #include <cstdlib>
 
 namespace ut
 {
+template <typename Number>
+class vec2_xy
+{
+public:
+    Number x;
+    Number y;
+
+    vec2_xy(Number x, Number y) : x(x), y(y) {}
+
+    const Number& operator[](std::size_t idx) const
+    {
+        assert(idx < 2);
+        return idx == 0 ? x : y;
+    }
+    Number& operator[](std::size_t idx)
+    {
+        assert(idx < 2);
+        return idx == 0 ? x : y;
+    }
+};
+
+template <typename Number>
+class vec2_sb
+{
+    Number x;
+    Number y;
+
+public:
+    vec2_sb(Number x, Number y) : x(x), y(y) {}
+
+    const Number& operator[](std::size_t idx) const
+    {
+        assert(idx < 2);
+        return idx == 0 ? x : y;
+    }
+    Number& operator[](std::size_t idx)
+    {
+        assert(idx < 2);
+        return idx == 0 ? x : y;
+    }
+};
+
 template <typename Number>
 void vec2_constructor_empty()
 {
@@ -49,6 +92,22 @@ void vec2_constructor_copy_other(const math::vec2<OtherNumber>& v)
     math::vec2<Number> vec(v);
     ASSERT_EQ(vec.x(), Number(v.x()));
     ASSERT_EQ(vec.y(), Number(v.y()));
+}
+
+template <typename Number, typename VecType>
+void vec2_constructor_copy_other_vec(VecType v)
+{
+    math::vec2<Number> vec(v);
+    ASSERT_EQ(vec.x(), Number(v[0]));
+    ASSERT_EQ(vec.y(), Number(v[1]));
+}
+
+template <typename Number, typename VecType>
+void vec2_constructor_copy_other_rvec(const VecType& v)
+{
+    math::vec2<Number> vec{ VecType(v) };
+    ASSERT_EQ(vec.x(), Number(v[0]));
+    ASSERT_EQ(vec.y(), Number(v[1]));
 }
 
 template <typename Number, typename OtherNumber>
@@ -124,8 +183,7 @@ void vec2_operator_plus_equal(Number x1, Number y1, Number x2, Number y2, Number
 
 template <typename Number, typename OtherNumber, typename ResNumber>
     requires(!std::is_same_v<Number, OtherNumber>)
-void vec2_operator_plus_equal_other(Number x1, Number y1, OtherNumber x2, OtherNumber y2, ResNumber xr,
-                                    ResNumber yr)
+void vec2_operator_plus_equal_other(Number x1, Number y1, OtherNumber x2, OtherNumber y2, ResNumber xr, ResNumber yr)
 {
     math::vec2<Number> v1(x1, y1);
     math::vec2<OtherNumber> v2(x2, y2);
@@ -165,8 +223,7 @@ void vec2_operator_minus_equal(Number x1, Number y1, Number x2, Number y2, Numbe
 
 template <typename Number, typename OtherNumber, typename ResNumber>
     requires(!std::is_same_v<Number, OtherNumber>)
-void vec2_operator_minus_equal_other(Number x1, Number y1, OtherNumber x2, OtherNumber y2, ResNumber xr,
-                                     ResNumber yr)
+void vec2_operator_minus_equal_other(Number x1, Number y1, OtherNumber x2, OtherNumber y2, ResNumber xr, ResNumber yr)
 {
     math::vec2<Number> v1(x1, y1);
     math::vec2<OtherNumber> v2(x2, y2);
@@ -400,6 +457,66 @@ TEST(vec2_tests, vec2_constructor_copy_other)
     ut::vec2_constructor_copy_other<float>(math::vec2<int>(12, 36));
     ut::vec2_constructor_copy_other<double>(math::vec2<int>(12, 36));
     ut::vec2_constructor_copy_other<long double>(math::vec2<int>(12, 36));
+}
+
+TEST(vec2_tests, vec2_constructor_copy_other_vec_xy)
+{
+    ut::vec2_constructor_copy_other_vec<uint8_t>(ut::vec2_xy<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_vec<uint16_t>(ut::vec2_xy<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_vec<uint32_t>(ut::vec2_xy<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_vec<uint64_t>(ut::vec2_xy<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_vec<int8_t>(ut::vec2_xy<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_vec<int16_t>(ut::vec2_xy<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_vec<int32_t>(ut::vec2_xy<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_vec<int64_t>(ut::vec2_xy<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_vec<float>(ut::vec2_xy<int>(12, 36));
+    ut::vec2_constructor_copy_other_vec<double>(ut::vec2_xy<int>(12, 36));
+    ut::vec2_constructor_copy_other_vec<long double>(ut::vec2_xy<int>(12, 36));
+}
+
+TEST(vec2_tests, vec2_constructor_copy_other_vec_sb)
+{
+    ut::vec2_constructor_copy_other_vec<uint8_t>(ut::vec2_sb<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_vec<uint16_t>(ut::vec2_sb<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_vec<uint32_t>(ut::vec2_sb<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_vec<uint64_t>(ut::vec2_sb<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_vec<int8_t>(ut::vec2_sb<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_vec<int16_t>(ut::vec2_sb<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_vec<int32_t>(ut::vec2_sb<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_vec<int64_t>(ut::vec2_sb<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_vec<float>(ut::vec2_sb<int>(12, 36));
+    ut::vec2_constructor_copy_other_vec<double>(ut::vec2_sb<int>(12, 36));
+    ut::vec2_constructor_copy_other_vec<long double>(ut::vec2_sb<int>(12, 36));
+}
+
+TEST(vec2_tests, vec2_constructor_copy_other_rvec_xy)
+{
+    ut::vec2_constructor_copy_other_rvec<uint8_t>(ut::vec2_xy<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_rvec<uint16_t>(ut::vec2_xy<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_rvec<uint32_t>(ut::vec2_xy<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_rvec<uint64_t>(ut::vec2_xy<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_rvec<int8_t>(ut::vec2_xy<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_rvec<int16_t>(ut::vec2_xy<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_rvec<int32_t>(ut::vec2_xy<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_rvec<int64_t>(ut::vec2_xy<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_rvec<float>(ut::vec2_xy<int>(12, 36));
+    ut::vec2_constructor_copy_other_rvec<double>(ut::vec2_xy<int>(12, 36));
+    ut::vec2_constructor_copy_other_rvec<long double>(ut::vec2_xy<int>(12, 36));
+}
+
+TEST(vec2_tests, vec2_constructor_copy_other_rvec_sb)
+{
+    ut::vec2_constructor_copy_other_rvec<uint8_t>(ut::vec2_sb<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_rvec<uint16_t>(ut::vec2_sb<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_rvec<uint32_t>(ut::vec2_sb<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_rvec<uint64_t>(ut::vec2_sb<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_rvec<int8_t>(ut::vec2_sb<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_rvec<int16_t>(ut::vec2_sb<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_rvec<int32_t>(ut::vec2_sb<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_rvec<int64_t>(ut::vec2_sb<float>(32.75, 42.25));
+    ut::vec2_constructor_copy_other_rvec<float>(ut::vec2_sb<int>(12, 36));
+    ut::vec2_constructor_copy_other_rvec<double>(ut::vec2_sb<int>(12, 36));
+    ut::vec2_constructor_copy_other_rvec<long double>(ut::vec2_sb<int>(12, 36));
 }
 
 TEST(vec2_tests, vec2_assignment)
