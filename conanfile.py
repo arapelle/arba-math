@@ -49,6 +49,7 @@ class ArbaMathRecipe(ConanFile):
         cmake_layout(self)
 
     def requirements(self):
+        self.requires("arba-meta/[^0.3]", transitive_headers=True, transitive_libs=True)
         self.requires("arba-hash/[^0.2]", transitive_headers=True, transitive_libs=True)
 
     def validate(self):
