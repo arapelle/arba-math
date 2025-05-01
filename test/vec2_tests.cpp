@@ -14,7 +14,7 @@ public:
     Number x;
     Number y;
 
-    vec2_xy(Number x, Number y) : x(x), y(y) {}
+    vec2_xy(Number xval, Number yval) : x(xval), y(yval) {}
 
     const Number& operator[](std::size_t idx) const
     {
@@ -35,7 +35,7 @@ class vec2_sb
     Number y;
 
 public:
-    vec2_sb(Number x, Number y) : x(x), y(y) {}
+    vec2_sb(Number xval, Number yval) : x(xval), y(yval) {}
 
     const Number& operator[](std::size_t idx) const
     {
