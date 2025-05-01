@@ -32,7 +32,7 @@ conan create . --build=missing -c
 Add a requirement in your conanfile project file.
 ```python
     def requirements(self):
-        self.requires("arba-math/0.3.0")
+        self.requires("arba-math/0.7.0")
 ```
 
 ## Quick Install ##
